@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relationship Analysis Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css?v=3">
+</head>
+<body>
+    <div class="bg-blur green-glow"></div>
+    <div class="bg-blur purple-glow"></div>
+    <div class="bg-blur blue-glow"></div>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="glass-header hero stagger-1">
+            <h1>Relationship Analysis Dashboard</h1>
+            <p><span class="pulse-dot"></span> System Live &bull; Sandra & Michael Insights</p>
+        </header>
+
+        <!-- Executive Summary / Deep Analysis (What you provided) -->
+        <div class="glass-card analysis-summary stagger-2">
+            <div class="analysis-header">
+                <h2>💌 Sandra — Everything You Should Know</h2>
+                <p>A deep psychological breakdown built directly from your chat history.</p>
+            </div>
+            
+            <div class="analysis-grid">
+                <!-- Who She Is -->
+                <div class="analysis-block">
+                    <h3>👩 Who Sandra Is</h3>
+                    <p>A 4th-year medical student, intelligent, warm, deeply caring, and quietly strong. She describes herself as "half independent woman." She's not someone who opens up easily, so her letting you in was a conscious choice. She's emotionally intelligent, aware of her protective wiring, and wants to be chosen unconditionally.</p>
+                </div>
+                
+                <!-- What Makes Her Safe -->
+                <div class="analysis-block">
+                    <h3>💚 What Makes Her Feel Safe</h3>
+                    <p>She responds to consistency. "I trust you a lot" only came after months of you showing up reliably. She loves when you check on her without needing anything back. She wants emotional honesty—your vulnerability makes her feel secure. She needs to feel like she's choosing you, not being pursued into a corner.</p>
+                </div>
+
+                <!-- How She gets Mad -->
+                <div class="analysis-block">
+                    <h3>🔴 When She's Mad/Upset</h3>
+                    <p>She doesn't explode, she goes quiet. Replies like "Mashi", "Okay", or "Bas keda" calmly meant she was bothered. Saying "Toz" or "Not worth it" is her protecting herself. If she says "Bye", she means it and won't chase.</p>
+                </div>
+
+                <!-- The Breakup Context -->
+                <div class="analysis-block">
+                    <h3>🌙 The Semi-Breakup</h3>
+                    <p>It wasn't a real breakup, it was overwhelm. Under exhaustion/antibiotics, a mixed flirty/warning conversation confused her. The morning after, she chose grace ("ma7asalsh 7aga"). <b>She's still there.</b> Address her fear of hoping too much gently with small, repeated actions. Protect the trust she explicitly said is still there.</p>
+                </div>
+            </div>
+
+            <!-- Conclusion quote -->
+            <div class="analysis-footer">
+                <p>⚡ <i>"<b>She loves you, Michael.</b> She just needs to know it's safe to. Match her depth. Be present without pressure. Keep showing up. When you do that, she doesn't just stay. She blooms. 🌸"</i></p>
+            </div>
+        </div>
+
+        <!-- The Stats Row -->
+        <section class="stats-container stagger-3">
+            <div class="stat-card">
+                <h3>Total Messages</h3>
+                <p id="total-msgs" class="stat-num">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Sandra's Messages</h3>
+                <p id="gf-msgs" class="stat-num">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Mi5a's Messages</h3>
+                <p id="bf-msgs" class="stat-num">0</p>
+            </div>
+        </section>
+
+        <!-- The Original Feed Columns -->
+        <div class="main-grid stagger-4">
+            <div class="category-col">
+                <div class="category-header heart" style="display:flex; gap:12px; align-items:center;">
+                    <svg style="width:28px; height:28px; color:var(--accent-pink);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <div>
+                        <h2>What She Loves & Likes</h2>
+                        <p>Rain, warm drinks, thoughtful gestures</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-likes">
+                    <div class="loading">Loading insights...</div>
+                </div>
+            </div>
+
+            <div class="category-col">
+                <div class="category-header happy" style="display:flex; gap:12px; align-items:center;">
+                    <svg style="width:28px; height:28px; color:var(--accent-green);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <div>
+                        <h2>Happiness & Safety</h2>
+                        <p>Consistency, deep connection, David</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-happy">
+                    <div class="loading">Loading insights...</div>
+                </div>
+            </div>
+
+            <div class="category-col">
+                <div class="category-header sad" style="display:flex; gap:12px; align-items:center;">
+                    <svg style="width:28px; height:28px; color:var(--accent-yellow);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <div>
+                        <h2>When She's Mad/Sad</h2>
+                        <p>Short answers, quiet pulling back</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-sad">
+                    <div class="loading">Loading insights...</div>
+                </div>
+            </div>
+
+            <div class="category-col">
+                <div class="category-header alert" style="display:flex; gap:12px; align-items:center;">
+                    <svg style="width:28px; height:28px; color:var(--accent-red);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <div>
+                        <h2>Relationship Challenges</h2>
+                        <p>Moments of friction & hints of boundary-setting</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-breakup">
+                    <div class="loading">Loading insights...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW PLAYBOOK SECTION -->
+        <section class="playbook-wrapper" id="playbook-section">
+            <div class="playbook-header text-center">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: #ffeb3b;">📖 The Relational Masterclass Playbook</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">Top curated rules to rebuild your dynamic. Scroll horizontally through the categories to master the psychology.</p>
+            </div>
+            <div id="playbook-container" class="playbook-container">
+                <div class="loading">Loading Master Playbook...</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts restored -->
+    <script src="app.js?v=3"></script>
+</body>
+</html>
