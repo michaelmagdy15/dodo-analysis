@@ -3,7 +3,7 @@ const fs = require('fs');
 /**
  * PRODUCTION BUILD SCRIPT
  * Bundles index.html, index.css, app.js, and data into a single, unified index.html 
- * optimized for GitHub Pages (zero-404 architecture).
+ * optimized for GitHub Pages and Netlify (zero-404 architecture).
  */
 
 console.log('--- STARTING CLEAN BUILD ---');
@@ -17,17 +17,20 @@ try {
     const playbookRaw = fs.readFileSync('playbook.json', 'utf8');
 
     // 2. Prepare the bundle
+    // CRITICAL: Escape </script> tags in data to prevent premature script termination
+    const safeData = dataRaw.replace(/<\/script>/g, '<\\/script>');
+    const safePlaybook = playbookRaw.replace(/<\/script>/g, '<\\/script>');
+
     // Strip out existing payloads to prevent double-bundling if run multiple times
     let cleanHtml = html
         .replace(/<script id="app-data-payload"[^>]*>[\s\S]*?<\/script>/g, '')
         .replace(/<script id="app-playbook-payload"[^>]*>[\s\S]*?<\/script>/g, '')
         .replace(/<script id="app-logic"[^>]*>[\s\S]*?<\/script>/g, '')
-        .replace(/<style>[\s\S]*?<\/style>/g, ''); // Also strip inlined styles for clean slate
+        .replace(/<style>[\s\S]*?<\/style>/g, ''); 
 
     // Inline the CSS
     let singleHtml = cleanHtml.replace(/<link rel="stylesheet"[^>]*>/, `<style>${css}</style>`);
     if (singleHtml === cleanHtml) {
-        // Fallback if <link> was already replaced by <style>
         singleHtml = cleanHtml.replace(/<\/head>/, `<style>${css}</style>\n</head>`);
     }
 
@@ -37,10 +40,10 @@ try {
     // 3. Inject JSON data and JS logic
     const bodyEndInjection = `
 <script id="app-data-payload" type="application/json">
-${dataRaw}
+${safeData}
 </script>
 <script id="app-playbook-payload" type="application/json">
-${playbookRaw}
+${safePlaybook}
 </script>
 <script id="app-logic">
 ${js}

@@ -7,14 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const playbookPayload = document.getElementById('app-playbook-payload');
 
     if (dataPayload && playbookPayload) {
-        console.log('--- OFFLINE MODE (PAYLOAD DETECTED) ---');
         try {
+            console.log('--- OFFLINE MODE (PAYLOAD DETECTED) ---');
             const data = JSON.parse(dataPayload.textContent);
             const playbook = JSON.parse(playbookPayload.textContent);
+            console.log('Data loaded:', !!data, 'Playbook sections:', playbook?.length || playbook?.sections?.length);
             processAndRender(data, playbook);
         } catch (e) {
             console.error('Payload Parse Error:', e);
-            initDashboard(); // Fallback to fetch if parse fails
+            initDashboard(); 
         }
     } else {
         console.log('--- ONLINE MODE (FETCHING) ---');
@@ -242,8 +243,14 @@ function renderTimeline(timelineData) {
 function renderPlaybook(playbookData) {
     const container = document.getElementById('playbook-carousel');
     const sections = Array.isArray(playbookData) ? playbookData : (playbookData.sections || []);
-    if (!container || !sections.length) return;
-    container.innerHTML = '';
+    
+    if (!container) return;
+    container.innerHTML = ''; // Clear loading state immediately
+    
+    if (!sections.length) {
+        container.innerHTML = '<div class="no-data">Playbook strategies not yet generated for this data set.</div>';
+        return;
+    }
 
     sections.forEach(section => {
         const card = document.createElement('div');

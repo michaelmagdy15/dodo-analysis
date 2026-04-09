@@ -1,0 +1,13 @@
+{
+  "name": "dodo-analysis-dashboard",
+  "version": "1.0.0",
+  "description": "Relationship Intelligence Dashboard",
+  "main": "app.js",
+  "scripts": {
+    "build": "node build_offline.js",
+    "start": "node build_offline.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
