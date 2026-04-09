@@ -1,67 +1,41 @@
 const fs = require('fs');
-const path = require('path');
 
-// Read all source files
-const html = fs.readFileSync('index.html', 'utf8');
-const css = fs.readFileSync('index.css', 'utf8');
-let js = fs.readFileSync('app.js', 'utf8');
+/**
+ * PRODUCTION BUILD SCRIPT
+ * Bundles index.html, index.css, app.js, and data into a single, unified index.html 
+ * optimized for GitHub Pages (zero-404 architecture).
+ */
 
-const dataRaw = fs.readFileSync('data.json', 'utf8');
-const playbookRaw = fs.readFileSync('playbook.json', 'utf8');
+console.log('--- STARTING CLEAN BUILD ---');
 
-// --- Modify JS for Offline Use ---
-// 1. Remove the standard init call to avoid double firing
-js = js.replace('initDashboard();', '// initDashboard(); handled by inline loader');
+try {
+    // 1. Load component files
+    const html = fs.readFileSync('index.html', 'utf8');
+    const css = fs.readFileSync('index.css', 'utf8');
+    const js = fs.readFileSync('app.js', 'utf8');
+    const dataRaw = fs.readFileSync('data.json', 'utf8');
+    const playbookRaw = fs.readFileSync('playbook.json', 'utf8');
 
-// 2. Add an inline loader that extracts data from the JSON script tags
-const inlineLoader = `
-function initOfflineDashboard() {
-    try {
-        console.log('--- STARTING OFFLINE INIT ---');
-        const dataPayload = document.getElementById('app-data-payload');
-        const playbookPayload = document.getElementById('playbook-data-payload');
-        
-        if (!dataPayload || !playbookPayload) {
-            console.error('Data payloads not found in DOM.');
-            return;
-        }
+    // 2. Prepare the bundle
+    // Strip out existing payloads to prevent double-bundling if run multiple times
+    let cleanHtml = html
+        .replace(/<script id="app-data-payload"[^>]*>[\s\S]*?<\/script>/g, '')
+        .replace(/<script id="app-playbook-payload"[^>]*>[\s\S]*?<\/script>/g, '')
+        .replace(/<script id="app-logic"[^>]*>[\s\S]*?<\/script>/g, '')
+        .replace(/<style>[\s\S]*?<\/style>/g, ''); // Also strip inlined styles for clean slate
 
-        const data = JSON.parse(dataPayload.textContent);
-        const playbook = JSON.parse(playbookPayload.textContent);
-
-        window.__APP_DATA__ = data;
-        window.__PLAYBOOK_DATA__ = playbook;
-
-        if (typeof processAndRender === 'function') {
-            processAndRender(data, playbook);
-        } else {
-            console.error('processAndRender function not found.');
-        }
-        
-        console.log('--- OFFLINE DASHBOARD LOADED ---');
-    } catch (e) {
-        console.error('Offline Load Error:', e);
+    // Inline the CSS
+    let singleHtml = cleanHtml.replace(/<link rel="stylesheet"[^>]*>/, `<style>${css}</style>`);
+    if (singleHtml === cleanHtml) {
+        // Fallback if <link> was already replaced by <style>
+        singleHtml = cleanHtml.replace(/<\/head>/, `<style>${css}</style>\n</head>`);
     }
-}
-// Run immediately if DOM is ready, or wait
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initOfflineDashboard);
-} else {
-    initOfflineDashboard();
-}
-`;
 
-// --- Compile Single File ---
-let singleHtml = html;
+    // Remove the external JS script tag
+    singleHtml = singleHtml.replace(/<script src="app\.js[^>]*><\/script>/, '');
 
-// Inject internal CSS
-singleHtml = singleHtml.replace(/<link rel="stylesheet" href="index\.css[^>]*>/, `<style>\n${css}\n</style>`);
-
-// Remove external JS link
-singleHtml = singleHtml.replace(/<script src="app\.js[^>]*><\/script>/, '');
-
-// Inject JSON data and JS logic
-const bodyEndInjection = `
+    // 3. Inject JSON data and JS logic
+    const bodyEndInjection = `
 <script id="app-data-payload" type="application/json">
 ${dataRaw}
 </script>
@@ -74,10 +48,18 @@ ${js}
 </body>
 `;
 
-singleHtml = singleHtml.replace(/<\/body>/, bodyEndInjection);
+    singleHtml = singleHtml.replace(/<\/body>/, bodyEndInjection);
 
-// Output the final file as index.html for direct GitHub Pages deployment
-fs.writeFileSync('index.html', singleHtml, 'utf8');
-console.log('--- BUILD SUCCESSFUL ---');
-console.log('Generated: index.html (Bundled Version)');
-console.log('Size: ' + (Buffer.byteLength(singleHtml) / 1024).toFixed(2) + ' KB');
+    // 4. Output the final file
+    fs.writeFileSync('index.html', singleHtml, 'utf8');
+    fs.writeFileSync('Dashboard.html', singleHtml, 'utf8'); // Keep backup version
+
+    console.log('--- BUILD SUCCESSFUL ---');
+    console.log('Generated: index.html (Bundled Version)');
+    console.log('Size: ' + (Buffer.byteLength(singleHtml) / 1024).toFixed(2) + ' KB');
+
+} catch (err) {
+    console.error('--- BUILD FAILED ---');
+    console.error(err);
+    process.exit(1);
+}
