@@ -6,6 +6,7 @@
     <title>Sandra & Michael • Relationship Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <style>
+:root {
     --bg-color: #0d1117;
     --card-bg: rgba(22, 27, 34, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
@@ -767,8 +768,6 @@ body {
     .playbook-cards-wrapper::-webkit-scrollbar {
         display: none; 
     }
-    .playbook-cards-wrapper {
-    }
 }
 
 /* --- Emergency Modal --- */
@@ -779,16 +778,19 @@ body {
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     z-index: 1000;
-    display: flex;
+    display: none; /* Changed: Hide by default */
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    opacity: 1;
     transition: 0.3s ease;
 }
-.glass-modal.hide {
-    opacity: 0;
-    pointer-events: none;
+.glass-modal.show {
+    display: flex; /* Changed: Show when .show class is added */
+    animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 .modal-content {
     background: rgba(30, 41, 59, 0.7);
@@ -802,7 +804,7 @@ body {
     max-height: 85vh;
     overflow-y: auto;
 }
-.modal-close {
+.close-modal {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
@@ -1059,7 +1061,7 @@ body {
     </div>
 
     <!-- Emergency FAB -->
-    <button id="emergency-btn" class="emergency-fab" id="emergency-fab">
+    <button id="emergency-btn" class="emergency-fab">
         <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 2L2 22h20L12 2zm0 4.2l7.6 15H4.4L12 6.2zM11 11v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
         </svg>
@@ -1067,8 +1069,8 @@ body {
 
     
 
-<script id="app-data">
-    window.__APP_DATA__ = {
+<script id="app-data-payload" type="application/json">
+{
   "stats": {
     "total": 136890,
     "gfTotal": 48338,
@@ -14851,8 +14853,10 @@ body {
     "touch": 84
   },
   "avgResponseLatencyMins": 17
-};
-    window.__PLAYBOOK_DATA__ = [
+}
+</script>
+<script id="app-playbook-payload" type="application/json">
+[
   {
     "category": "1. The Disparity in How You \"Speak\" Love",
     "points": [
@@ -15197,20 +15201,30 @@ body {
       "The Master Key: Stop analyzing. Start living. The data is processed. The strategy is set. Now, drop the anxiety, walk out into your life, and be the man she fell in love with."
     ]
   }
-];
+]
 </script>
 <script id="app-logic">
 const DATA_URL = 'data.json';
 const PLAYBOOK_URL = 'playbook.json';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we are in "Embedded" mode
-    if (window.__APP_DATA__) {
-        console.log('--- OFFLINE MODE ---');
-        initOfflineDashboard();
+    // Check for offline data payloads first
+    const dataPayload = document.getElementById('app-data-payload');
+    const playbookPayload = document.getElementById('app-playbook-payload');
+
+    if (dataPayload && playbookPayload) {
+        console.log('--- OFFLINE MODE (PAYLOAD DETECTED) ---');
+        try {
+            const data = JSON.parse(dataPayload.textContent);
+            const playbook = JSON.parse(playbookPayload.textContent);
+            processAndRender(data, playbook);
+        } catch (e) {
+            console.error('Payload Parse Error:', e);
+            // initDashboard(); handled by inline loader // Fallback to fetch if parse fails
+        }
     } else {
-        console.log('--- ONLINE MODE ---');
-        // initDashboard(); handled by inline loader
+        console.log('--- ONLINE MODE (FETCHING) ---');
+        initDashboard();
     }
     setupModals();
 });
@@ -15234,22 +15248,13 @@ async function initDashboard() {
     }
 }
 
-function initOfflineDashboard() {
-    try {
-        const data = window.__APP_DATA__;
-        const playbook = window.__PLAYBOOK_DATA__;
-        if (!data || !playbook) throw new Error('Inlined data missing.');
-        processAndRender(data, playbook);
-    } catch (e) {
-        console.error('Offline Load Error:', e);
-        showErrorUI();
-    }
-}
-
 function processAndRender(data, playbook) {
-    renderDashboard(data);
-    renderPlaybook(playbook);
-    setupEmergencyModal(playbook);
+    if (!data || !playbook) return;
+    
+    try { renderDashboard(data); } catch (e) { console.error('Dashboard Render Error:', e); }
+    try { renderPlaybook(playbook); } catch (e) { console.error('Playbook Render Error:', e); }
+    try { setupEmergencyModal(playbook); } catch (e) { console.error('Modal Setup Error:', e); }
+    
     document.body.classList.add('loaded'); // Trigger CSS animations
 }
 
@@ -15414,7 +15419,6 @@ function renderTimeline(timelineData) {
     if (!container || !timelineData) return;
     container.innerHTML = '';
 
-    // Fix: Some months use 'label' instead of 'month' in the raw data
     const max = Math.max(...timelineData.map(d => (d.happy || 0) + (d.sad || 0) + (d.conflict || 0)), 1);
     
     timelineData.forEach(point => {
@@ -15488,26 +15492,6 @@ function setupEmergencyModal(playbook) {
 function setupModals() {
     // Other modal setup if needed
 }
-
-
-async function initOfflineDashboard() {
-    try {
-        const data = window.__APP_DATA__;
-        const playbook = window.__PLAYBOOK_DATA__;
-
-        if (!data || !playbook) throw new Error('Inlined data missing.');
-
-        renderDashboard(data);
-        renderPlaybook(playbook);
-        setupEmergencyModal(playbook);
-        
-        document.body.classList.add('loaded');
-        console.log('Offline Dashboard Loaded Successfully');
-    } catch (e) {
-        console.error('Offline Load Error:', e);
-    }
-}
-document.addEventListener('DOMContentLoaded', initOfflineDashboard);
 
 </script>
 </body>

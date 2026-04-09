@@ -10,29 +10,45 @@ const dataRaw = fs.readFileSync('data.json', 'utf8');
 const playbookRaw = fs.readFileSync('playbook.json', 'utf8');
 
 // --- Modify JS for Offline Use ---
-// 1. Remove the standard init call
+// 1. Remove the standard init call to avoid double firing
 js = js.replace('initDashboard();', '// initDashboard(); handled by inline loader');
 
-// 2. Add an inline loader that uses the window data instead of fetch
+// 2. Add an inline loader that extracts data from the JSON script tags
 const inlineLoader = `
-async function initOfflineDashboard() {
+function initOfflineDashboard() {
     try {
-        const data = window.__APP_DATA__;
-        const playbook = window.__PLAYBOOK_DATA__;
-
-        if (!data || !playbook) throw new Error('Inlined data missing.');
-
-        renderDashboard(data);
-        renderPlaybook(playbook);
-        setupEmergencyModal(playbook);
+        console.log('--- STARTING OFFLINE INIT ---');
+        const dataPayload = document.getElementById('app-data-payload');
+        const playbookPayload = document.getElementById('playbook-data-payload');
         
-        document.body.classList.add('loaded');
-        console.log('Offline Dashboard Loaded Successfully');
+        if (!dataPayload || !playbookPayload) {
+            console.error('Data payloads not found in DOM.');
+            return;
+        }
+
+        const data = JSON.parse(dataPayload.textContent);
+        const playbook = JSON.parse(playbookPayload.textContent);
+
+        window.__APP_DATA__ = data;
+        window.__PLAYBOOK_DATA__ = playbook;
+
+        if (typeof processAndRender === 'function') {
+            processAndRender(data, playbook);
+        } else {
+            console.error('processAndRender function not found.');
+        }
+        
+        console.log('--- OFFLINE DASHBOARD LOADED ---');
     } catch (e) {
         console.error('Offline Load Error:', e);
     }
 }
-document.addEventListener('DOMContentLoaded', initOfflineDashboard);
+// Run immediately if DOM is ready, or wait
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOfflineDashboard);
+} else {
+    initOfflineDashboard();
+}
 `;
 
 // --- Compile Single File ---
@@ -46,13 +62,14 @@ singleHtml = singleHtml.replace(/<script src="app\.js[^>]*><\/script>/, '');
 
 // Inject JSON data and JS logic
 const bodyEndInjection = `
-<script id="app-data">
-    window.__APP_DATA__ = ${dataRaw};
-    window.__PLAYBOOK_DATA__ = ${playbookRaw};
+<script id="app-data-payload" type="application/json">
+${dataRaw}
+</script>
+<script id="app-playbook-payload" type="application/json">
+${playbookRaw}
 </script>
 <script id="app-logic">
 ${js}
-${inlineLoader}
 </script>
 </body>
 `;

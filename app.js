@@ -2,12 +2,22 @@ const DATA_URL = 'data.json';
 const PLAYBOOK_URL = 'playbook.json';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we are in "Embedded" mode
-    if (window.__APP_DATA__) {
-        console.log('--- OFFLINE MODE ---');
-        initOfflineDashboard();
+    // Check for offline data payloads first
+    const dataPayload = document.getElementById('app-data-payload');
+    const playbookPayload = document.getElementById('app-playbook-payload');
+
+    if (dataPayload && playbookPayload) {
+        console.log('--- OFFLINE MODE (PAYLOAD DETECTED) ---');
+        try {
+            const data = JSON.parse(dataPayload.textContent);
+            const playbook = JSON.parse(playbookPayload.textContent);
+            processAndRender(data, playbook);
+        } catch (e) {
+            console.error('Payload Parse Error:', e);
+            initDashboard(); // Fallback to fetch if parse fails
+        }
     } else {
-        console.log('--- ONLINE MODE ---');
+        console.log('--- ONLINE MODE (FETCHING) ---');
         initDashboard();
     }
     setupModals();
@@ -32,22 +42,13 @@ async function initDashboard() {
     }
 }
 
-function initOfflineDashboard() {
-    try {
-        const data = window.__APP_DATA__;
-        const playbook = window.__PLAYBOOK_DATA__;
-        if (!data || !playbook) throw new Error('Inlined data missing.');
-        processAndRender(data, playbook);
-    } catch (e) {
-        console.error('Offline Load Error:', e);
-        showErrorUI();
-    }
-}
-
 function processAndRender(data, playbook) {
-    renderDashboard(data);
-    renderPlaybook(playbook);
-    setupEmergencyModal(playbook);
+    if (!data || !playbook) return;
+    
+    try { renderDashboard(data); } catch (e) { console.error('Dashboard Render Error:', e); }
+    try { renderPlaybook(playbook); } catch (e) { console.error('Playbook Render Error:', e); }
+    try { setupEmergencyModal(playbook); } catch (e) { console.error('Modal Setup Error:', e); }
+    
     document.body.classList.add('loaded'); // Trigger CSS animations
 }
 
@@ -212,7 +213,6 @@ function renderTimeline(timelineData) {
     if (!container || !timelineData) return;
     container.innerHTML = '';
 
-    // Fix: Some months use 'label' instead of 'month' in the raw data
     const max = Math.max(...timelineData.map(d => (d.happy || 0) + (d.sad || 0) + (d.conflict || 0)), 1);
     
     timelineData.forEach(point => {
