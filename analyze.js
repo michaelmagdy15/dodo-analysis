@@ -64,6 +64,90 @@ function extractMatches(msgs, keywords) {
     return results;
 }
 
+// Advanced Analytics Schemas
+const llAffirmation = ["love you", "proud of", "thank you", "best", "sweet", "ba7eb", "to7fa", "helw", "fokhra"];
+const llService = ["helped", "did this", "fixed", "made this for", "sa3edt", "3amalt", "gebt"];
+const llTime = ["miss", "see you", "together", "wait", "soon", "with you", "wa7ashteni", "ma3ak", "wa2t", "m3ak", "ashofak"];
+const llTouch = ["hug", "kiss", "cuddle", "hold", "hodn", "bos", "حضن", "بوس"];
+
+function generateAdvancedAnalytics(messages, gfName) {
+    const timeline = {};
+    const heatmap = {};
+    const timeOfDay = Array(24).fill(0).map((_, i) => ({ hour: i, happy: 0, conflict: 0 }));
+    const loveLanguages = { affirmation: 0, service: 0, time: 0, touch: 0 };
+    
+    let latencySum = 0;
+    let latencyCount = 0;
+    let lastBfMsgTime = null;
+
+    messages.forEach(m => {
+        // Parse time formats like "02/14/2023, 10:30:00 PM"
+        const timeStr = m.time.replace('[', '').replace(']', '').trim();
+        const dateObj = new Date(timeStr);
+        if (isNaN(dateObj)) return; 
+        
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const hour = dateObj.getHours();
+
+        const monthKey = `${year}-${month}`;
+        const dayKey = `${year}-${month}-${day}`;
+        
+        if (!timeline[monthKey]) timeline[monthKey] = { label: monthKey, happy: 0, sad: 0, conflict: 0 };
+        if (!heatmap[dayKey]) heatmap[dayKey] = { date: dayKey, level: 0 };
+
+        const t = m.text.toLowerCase();
+        if (t.includes("omitted")) return;
+        
+        const isHappy = happyKeywords.some(kw => t.includes(kw));
+        const isSad = sadMadKeywords.some(kw => t.includes(kw));
+        const isConflict = breakupKeywords.some(kw => t.includes(kw));
+        
+        if (m.sender === gfName) {
+            if (isHappy) timeline[monthKey].happy += 1;
+            if (isSad) timeline[monthKey].sad += 1;
+
+            if (llAffirmation.some(kw => t.includes(kw))) loveLanguages.affirmation++;
+            if (llService.some(kw => t.includes(kw))) loveLanguages.service++;
+            if (llTime.some(kw => t.includes(kw))) loveLanguages.time++;
+            if (llTouch.some(kw => t.includes(kw))) loveLanguages.touch++;
+
+            // Measure response time to him
+            if (lastBfMsgTime && (dateObj - lastBfMsgTime) > 0 && (dateObj - lastBfMsgTime) < 86400000) { // < 24 hrs
+                latencySum += (dateObj - lastBfMsgTime) / 60000; // mins
+                latencyCount++;
+            }
+        } else {
+            lastBfMsgTime = dateObj; 
+        }
+        
+        if (isConflict) timeline[monthKey].conflict += 1;
+        
+        if (isHappy) heatmap[dayKey].level += 1;
+        if (isConflict) heatmap[dayKey].level -= 2;
+
+        if (isHappy) timeOfDay[hour].happy++;
+        if (isConflict) timeOfDay[hour].conflict++;
+    });
+    
+    // Normalize heatmap - cap it so extreme days don't destroy color bounds
+    Object.keys(heatmap).forEach(k => {
+        if (heatmap[k].level > 4) heatmap[k].level = 4;
+        if (heatmap[k].level < -2) heatmap[k].level = -2;
+    });
+
+    return {
+        timeline: Object.values(timeline).sort((a,b) => a.label.localeCompare(b.label)),
+        heatmap: Object.values(heatmap).sort((a,b) => a.date.localeCompare(b.date)),
+        timeOfDay: timeOfDay,
+        loveLanguages: loveLanguages,
+        avgResponseLatencyMins: latencyCount > 0 ? Math.round(latencySum / latencyCount) : 0
+    };
+}
+
+const analytics = generateAdvancedAnalytics(messages, gfName);
+
 const report = {
     stats: {
         total: messages.length,
@@ -73,7 +157,8 @@ const report = {
     gfLoveLikes: extractMatches(gfMsgs, likesKeywords),
     gfHappySafe: extractMatches(gfMsgs, happyKeywords),
     gfMadSad: extractMatches(gfMsgs, sadMadKeywords),
-    breakdownHints: extractMatches(messages, breakupKeywords) // analyze both for hints
+    breakdownHints: extractMatches(messages, breakupKeywords),
+    ...analytics
 };
 
 fs.writeFileSync(path.join(folderPath, 'data.json'), JSON.stringify(report, null, 2));

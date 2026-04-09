@@ -1,4 +1,1074 @@
-{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandra & Michael • Relationship Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+    --bg-color: #0d1117;
+    --card-bg: rgba(22, 27, 34, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f0f6fc;
+    --text-muted: #8b949e;
+    --accent-red: #ff7b72;
+    --accent-green: #3fb950;
+    --accent-pink: #f472b6;
+    --accent-yellow: #d29922;
+    --accent-blue: #58a6ff;
+    --accent-purple: #bc8cff;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Global Premium Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Zen Entrance Animations */
+.stagger-1 { animation: fadeUp 0.8s var(--transition-smooth) backwards; animation-delay: 0.1s; }
+.stagger-2 { animation: fadeUp 0.8s var(--transition-smooth) backwards; animation-delay: 0.2s; }
+.stagger-3 { animation: fadeUp 0.8s var(--transition-smooth) backwards; animation-delay: 0.3s; }
+.stagger-4 { animation: fadeUp 0.8s var(--transition-smooth) backwards; animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Dynamic background glows - Pro Max Refined Mesh */
+.bg-blur {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.green-glow { width: 600px; height: 600px; background: var(--accent-green); top: -200px; left: -200px; animation: drift 15s infinite alternate ease-in-out; }
+.purple-glow { width: 500px; height: 500px; background: var(--accent-pink); bottom: -100px; right: -100px; animation: drift 12s infinite alternate-reverse ease-in-out; }
+.blue-glow { width: 400px; height: 400px; background: var(--accent-blue); top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.1; }
+
+@keyframes drift {
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(40px) scale(1.05); }
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.glass-header {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.glass-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Advanced Grid */
+.advanced-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+.advanced-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    transition: var(--transition-smooth);
+}
+.advanced-card:hover {
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-5px);
+}
+.advanced-card h3 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 0.2rem;
+}
+.advanced-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Summary Grid */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin-top: 1.5rem;
+}
+.summary-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.main-insight {
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(188, 140, 255, 0.1));
+    border: 1px solid rgba(88, 166, 255, 0.2);
+}
+.insight-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+/* Footer Stats */
+.footer-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+    border-top: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+.mini-stat span {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* Live Pulse Indicator */
+.pulse-dot {
+    position: relative;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-green);
+}
+.pulse-dot::after {
+    content: '';
+    position: absolute;
+    top: -4px; left: -4px; right: -4px; bottom: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-green);
+    animation: radarPulse 2s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes radarPulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Analysis Summary Component */
+.analysis-summary {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(12px);
+}
+
+.analysis-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1.5rem;
+}
+
+.analysis-header h2 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.analysis-block {
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.04);
+}
+
+.analysis-block h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #e2e8f0;
+}
+
+.analysis-block p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.analysis-footer {
+    text-align: center;
+    background: linear-gradient(to right, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1));
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(236, 72, 153, 0.2);
+}
+
+.analysis-footer p {
+    font-size: 1.2rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Timeline Chart */
+.timeline-container {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.chart-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 250px;
+    padding-top: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 5px;
+}
+
+.chart-wrapper::-webkit-scrollbar { height: 6px; }
+.chart-wrapper::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
+.chart-wrapper::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+.chart-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+    min-width: 60px;
+    height: 100%;
+}
+
+.chart-bar-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.chart-bar {
+    flex: 1;
+    background: var(--accent-green);
+    border-radius: 4px 4px 0 0;
+    min-height: 2px;
+    transition: var(--transition-smooth);
+    position: relative;
+    cursor: pointer;
+}
+
+.chart-bar.happy { background: var(--accent-green); opacity: 0.8; }
+.chart-bar.sad { background: var(--accent-yellow); opacity: 0.8; }
+.chart-bar.conflict { background: var(--accent-red); opacity: 0.8; }
+
+.chart-bar:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 -4px 10px rgba(255,255,255,0.2);
+}
+
+/* Tooltip on hover */
+.chart-bar::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: rgba(15, 23, 42, 0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s;
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 10;
+}
+.chart-bar:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+.chart-label {
+    margin-top: 8px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Stats Row */
+.stats-container {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    flex: 1;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(30, 41, 59, 0.8);
+}
+
+.stat-card h3 {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-num {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Main Grid (Feeds) */
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-col {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: var(--transition-smooth);
+}
+
+.category-col:hover {
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
+}
+
+.category-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.category-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+}
+
+.category-header.heart h2 { color: var(--accent-pink); }
+.category-header.happy h2 { color: var(--accent-green); }
+.category-header.sad h2 { color: var(--accent-yellow); }
+.category-header.alert h2 { color: var(--accent-red); }
+
+.category-header p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.feed-container {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Scrollbar styling */
+.feed-container::-webkit-scrollbar {
+    width: 6px;
+}
+.feed-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.feed-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+.feed-container:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.chat-bubble {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    position: relative;
+    backdrop-filter: blur(5px);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.chat-bubble:hover {
+    transform: translateX(5px);
+    background: rgba(255,255,255,0.08);
+}
+
+.chat-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.chat-text {
+    line-height: 1.5;
+}
+
+.loading {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 2rem;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+    }
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    .category-col {
+        height: 500px;
+    }
+}
+
+/* Master Playbook Styles */
+.playbook-wrapper {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.playbook-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.playbook-category {
+    background: rgba(30, 41, 59, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 1.5rem;
+    overflow: hidden;
+}
+
+.playbook-category h3 {
+    margin-bottom: 1.5rem;
+    color: #60a5fa;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.playbook-cards-wrapper {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-snap-type: x mandatory;
+}
+
+/* Hide scrollbar but keep functionality */
+.playbook-cards-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.playbook-cards-wrapper::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+.playbook-cards-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px;
+}
+.playbook-cards-wrapper:hover::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.3);
+}
+
+/* --- Modal System --- */
+.glass-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    display: none; /* Controlled by .show class */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: var(--transition-smooth);
+    padding: 2rem;
+}
+.glass-modal.show {
+    display: flex;
+    animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: rgba(22, 27, 34, 0.95);
+    border: 1px solid var(--accent-pink);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+}
+
+/* --- Heatmap Cell Fix --- */
+.heatmap-cell {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.05);
+    transition: 0.2s;
+    cursor: pointer;
+}
+.heatmap-cell:hover {
+    transform: scale(1.4);
+    z-index: 10;
+    box-shadow: 0 0 10px rgba(63, 185, 80, 0.5);
+}
+
+/* --- Feed Entry Styling --- */
+.feed-entry {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    transition: var(--transition-smooth);
+}
+.feed-entry:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+}
+.feed-time {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+    font-family: monospace;
+}
+.feed-text {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+/* Timeline Layout */
+.chart-wrapper {
+    height: 154px;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding-bottom: 20px;
+}
+.timeline-bar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+}
+.timeline-bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: height 1s ease-out;
+    background: var(--accent-blue);
+    min-height: 2px;
+}
+.timeline-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+.playbook-card:hover {
+    transform: translateY(-4px);
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.playbook-card-number {
+    font-size: 0.85rem;
+    color: var(--accent-pink);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.playbook-card-title {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.playbook-card-text {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* Elegant scrollbar hiding for horizontal swiping */
+.playbook-cards-wrapper::-webkit-scrollbar {
+    height: 8px; /* show thin bar on desktop */
+}
+
+.playbook-cards-wrapper::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.playbook-cards-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+
+/* Mobile responsive styles for iPhone view */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+    }
+    .metric-card {
+        padding: 1.5rem;
+    }
+    .feed-container {
+        max-height: 400px;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .playbook-category {
+        padding: 1rem;
+    }
+    .playbook-card {
+        min-width: 85vw;
+        max-width: 85vw;
+        padding: 1.5rem;
+    }
+    
+    /* completely hide scrollbar on mobile so it looks like native app swipe */
+    .playbook-cards-wrapper::-webkit-scrollbar {
+        display: none; 
+    }
+    .playbook-cards-wrapper {
+    }
+}
+
+/* --- Emergency Modal --- */
+.glass-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    opacity: 1;
+    transition: 0.3s ease;
+}
+.glass-modal.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+.modal-content {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255,100,150,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(236,72,153,0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* --- Emergency FAB --- */
+.emergency-fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 65px;
+    height: 65px;
+    background: rgba(236, 72, 153, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(236, 72, 153, 0.5);
+    color: var(--accent-pink);
+    border-radius: 50%;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(236,72,153,0.3);
+    animation: heartbeat 2s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+.emergency-fab svg { width: 32px; height: 32px; }
+.emergency-fab:hover {
+    background: rgba(236, 72, 153, 0.4);
+    transform: scale(1.1);
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); box-shadow: 0 0 20px rgba(236,72,153,0.3); }
+    10% { transform: scale(1.05); box-shadow: 0 0 30px rgba(236,72,153,0.5); }
+    20% { transform: scale(1); box-shadow: 0 0 20px rgba(236,72,153,0.3); }
+    30% { transform: scale(1.05); box-shadow: 0 0 30px rgba(236,72,153,0.5); }
+    40% { transform: scale(1); box-shadow: 0 0 20px rgba(236,72,153,0.3); }
+}
+
+/* --- Heatmap --- */
+.heatmap-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-content: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+.heat-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.05);
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.heat-box:hover {
+    transform: scale(1.5);
+    z-index: 2;
+    box-shadow: 0 0 10px currentColor;
+}
+/* Levels */
+.heat-box[data-level="-2"] { background: #b91c1c; } /* Severe Conflict */
+.heat-box[data-level="-1"] { background: #ef4444; } /* Mild Tension */
+.heat-box[data-level="0"] { background: rgba(255,255,255,0.05); } /* Neutral / No Data */
+.heat-box[data-level="1"] { background: #064e3b; } /* Positive */
+.heat-box[data-level="2"] { background: #059669; }
+.heat-box[data-level="3"] { background: #10b981; }
+.heat-box[data-level="4"] { background: #34d399; box-shadow: 0 0 5px #34d399;} /* Extremely Happy */
+
+/* Tooltip for heatmap */
+.heat-box::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    padding: 4px 8px; font-size: 0.7rem; border-radius: 4px; color:#fff;
+    white-space: nowrap; pointer-events: none; opacity: 0; transition: 0.2s;
+}
+.heat-box:hover::after { opacity: 1; z-index: 100; }
+
+.insight-card { transition: 0.3s; }
+.insight-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+
+</style>
+</head>
+<body>
+    <div class="bg-blur green-glow"></div>
+    <div class="bg-blur purple-glow"></div>
+    <div class="bg-blur blue-glow"></div>
+
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="glass-header hero stagger-1">
+            <h1>Relational Intelligence Dashboard</h1>
+            <p><span class="pulse-dot"></span> Core System Active • Sandra & Michael Logic</p>
+        </header>
+
+        <!-- Executive Summary Section -->
+        <section class="analysis-summary stagger-2">
+            <div class="analysis-header">
+                <h2>💌 Sandra — The Executive Breakdown</h2>
+                <p>Advanced diagnostic summary based on 130k+ data points.</p>
+            </div>
+            
+            <div class="summary-grid">
+                <div class="summary-card main-insight">
+                    <div class="insight-label">The Clinical Reality</div>
+                    <p>Sandra loves you deeply, but her world is currently 90% clinical responsibility (Surgery, VBT). She needs <strong>emotional bandwidth support</strong>, not just romance.</p>
+                </div>
+                <div class="summary-card">
+                    <div class="insight-label">Communication Delta</div>
+                    <p>Michael (72% Emotional) vs. Sandra (18% Practical). This "Romantic Gap" is where uncertainty lives. Latency: <strong id="avg-summary-latency">--</strong> mins.</p>
+                </div>
+                <div class="summary-card">
+                    <div class="insight-label">The Signal</div>
+                    <p>Silence is a request for space, not a sign of departure. When she goes quiet, she is processing exhaustion. Hold the space, don't fill it with pressure.</p>
+                </div>
+                <div class="summary-card">
+                    <div class="insight-label">The Path Forward</div>
+                    <p>It wasn't a breakup; it was overwhelm. Protect the trust. Small, repeated actions prove safety better than any single conversation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Intelligence Row -->
+        <div class="advanced-grid stagger-3">
+             <div class="advanced-card">
+                <h3>📅 Daily Sentiment Matrix</h3>
+                <p>365-day heatmap of your emotional connectivity.</p>
+                <div class="heatmap-wrapper" id="heatmap-grid">
+                    <div class="loading">Mapping calendar...</div>
+                </div>
+            </div>
+            <div class="advanced-card">
+                <h3>🕒 Communication Clock</h3>
+                <p>Optimum psychological window for connection.</p>
+                <div id="clock-vis" class="donut-container">
+                    <!-- Radial Clock -->
+                </div>
+            </div>
+            <div class="advanced-card">
+                <h3>🥧 Love Languages</h3>
+                <p>Verified emotional triggers and priority needs.</p>
+                <div id="love-vis" class="donut-container">
+                    <!-- Donut Chart -->
+                </div>
+            </div>
+            <div class="advanced-card full-width">
+                <h3>📈 Emotional Topography</h3>
+                <p>Tracking the flux of your connection over months.</p>
+                <div class="chart-wrapper" id="timeline-chart">
+                    <!-- Timeline -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Semantic Insight Categories -->
+        <div class="main-grid stagger-4">
+            <div class="category-col">
+                <div class="category-header heart">
+                    <div class="icon">💖</div>
+                    <div>
+                        <h2>Loves & Preferences</h2>
+                        <p>What fuels her connection</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-likes">
+                    <div class="loading">Scanning logs...</div>
+                </div>
+            </div>
+
+            <div class="category-col">
+                <div class="category-header happy">
+                    <div class="icon">✨</div>
+                    <div>
+                        <h2>Happiness & Safety</h2>
+                        <p>Moments of peak alignment</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-happy">
+                    <div class="loading">Scanning logs...</div>
+                </div>
+            </div>
+
+            <div class="category-col">
+                <div class="category-header sad">
+                    <div class="icon">🌙</div>
+                    <div>
+                        <h2>Withdrawal Signals</h2>
+                        <p>When she's pulling back</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-sad">
+                    <div class="loading">Scanning logs...</div>
+                </div>
+            </div>
+
+            <div class="category-col">
+                <div class="category-header alert">
+                    <div class="icon">⚠️</div>
+                    <div>
+                        <h2>Core Challenges</h2>
+                        <p>Conflict & Boundary patterns</p>
+                    </div>
+                </div>
+                <div class="feed-container" id="feed-breakup">
+                    <div class="loading">Scanning logs...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Master Playbook -->
+        <section class="playbook-wrapper stagger-5">
+            <div class="playbook-header">
+                <h2>📖 Relational Masterclass Playbook</h2>
+                <p>Scroll through curated psychological strategies for your dynamic.</p>
+            </div>
+            <div id="playbook-carousel" class="playbook-carousel">
+                <div class="loading">Opening Master Playbook...</div>
+            </div>
+        </section>
+
+        <!-- Stats Footer -->
+        <footer class="footer-stats stagger-5">
+            <div class="mini-stat">Messages: <span id="total-msgs">0</span></div>
+            <div class="mini-stat">Sandra: <span id="gf-msgs">0</span></div>
+            <div class="mini-stat">Michael: <span id="bf-msgs">0</span></div>
+        </footer>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergency-modal" class="glass-modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+                <h2>⚓ Emergency Anchor Protocol</h2>
+                <p>Read these points slowly before you react.</p>
+            </div>
+            <div id="emergency-content" class="emergency-feed">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency FAB -->
+    <button id="emergency-btn" class="emergency-fab" id="emergency-fab">
+        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 22h20L12 2zm0 4.2l7.6 15H4.4L12 6.2zM11 11v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+        </svg>
+    </button>
+
+    
+
+<script id="app-data">
+    window.__APP_DATA__ = {
   "stats": {
     "total": 136890,
     "gfTotal": 48338,
@@ -8245,7 +9315,7 @@
     },
     {
       "time": "24/02/2025, 6:35:43 PM",
-      "text": "**Title: 🚀 Blockchain in Healthcare 🏥**  ---  **Slide 1: Welcome to the Future! 🌐** - 🎤 Blockchain in Healthcare: The Game-Changer - 👥 Group Name & Member Roles - 📅 Presentation Date  ---  **Slide 2: What is Blockchain? 🤔** - 🛡️ A super-secure, digital ledger! - 🔗 Blocks linked together for transparency & trust - 🚀 Decentralization = No middleman! - 🎭 Immutable & Encrypted = No tampering!  ---  **Slide 3: How Does It Work? 🔍** - Transactions grouped into blocks 🧩 - Blocks linked with cryptographic security 🔒 - Peer-to-peer validation 🤝 - Data stays permanent! 🎯  ---  **Slide 4: Why Healthcare Needs Blockchain? 🏥💡** - 🤯 Data breaches cost $$$ billions! - 📂 Patients deserve control over their records! - 💨 Faster claims processing = Less stress! - 💊 No more fake drugs in the market!  ---  **Slide 5: Cool Applications of Blockchain 🚀** 🎯 **Secure Electronic Health Records** - Patients own their data 🏥 - Universal access with permissions 🔑  📦 **Transparent Pharma Supply Chain** - Say goodbye to counterfeit meds! 🚫💊 - Track drugs from factory to pharmacy 🛤️  📝 **Smart Contracts for Insurance** - No more middlemen! ⏳ - Automates claims & reduces fraud 🚨  🩺 **Credential Verification** - Ensures doctors & nurses are legit! 👩‍⚕️👨‍⚕️  📡 **IoT Security for Wearables** - Protects real-time patient data 📊 - Wearables = Safe & smart tracking 🏃  ---  **Slide 6: What’s in it for Healthcare? 💰💡** - 🔐 **Better Security** = No data leaks! - 🔄 **Faster Processes** = Less paperwork! - 💸 **Lower Costs** = Save money for hospitals & patients! - 🤖 **Automation** = No manual errors!  ---  **Slide 7: Challenges & Roadblocks 🚧** - 📜 **Regulatory Hurdles** (GDPR, HIPAA) - 🏗️ **Scalability Issues** (Slow networks = Delays) - 🤷 **Adoption Resistance** (Hospitals fear change!) - 🔌 **Legacy System Integration** (Outdated tech struggles!)  ---  **Slide 8: What’s Next? 🚀 Future of Blockchain in Healthcare** - 🤝 AI + Blockchain = Ultimate security & efficiency! - 🌍 Global adoption growing fast! 🌎 - 🔄 Fully decentralized health ecosystems! - 📜 Smart laws & policies for smooth adoption!  ---  **Slide 9: Real-World Success Stories 🌟** - 🇪🇪 **Estonia**: A national healthcare blockchain! 🚀 - 🏥 **IBM Watson Health**: Data-sharing redefined! - 🔄 **MedRec**: A decentralized patient records system!  ---  **Slide 10: The Grand Finale 🎉** - Blockchain is **REVOLUTIONIZING** healthcare! 🔥 - More security, efficiency, and trust! 🤝 - **We’re just getting started! 🚀**  ---  **Slide 11: References 📚** - (Cite sources and documents used)  ---  **Slide 12: Let’s Talk! 🗣️ Q&A Time!** - Ask us anything! 🎤🔥"
+      "text": "**Title: 🚀 Blockchain in Healthcare 🏥**  ---  **Slide 1: Welcome to the Future! 🌐** - 🎤 Blockchain in Healthcare: The Game-Changer - 👥 Group Name & Member Roles - 📅 Presentation Date  ---  **Slide 2: What is Blockchain? 🤔** - 🛡️ A super-secure, digital ledger! - 🔗 Blocks linked together for transparency & trust - 🚀 Decentralization = No middleman! - 🎭 Immutable & Encrypted = No tampering!  ---  **Slide 3: How Does It Work? 🔍** - Transactions grouped into blocks 🧩 - Blocks linked with cryptographic security 🔒 - Peer-to-peer validation 🤝 - Data stays permanent! 🎯  ---  **Slide 4: Why Healthcare Needs Blockchain? 🏥💡** - 🤯 Data breaches cost $$ billions! - 📂 Patients deserve control over their records! - 💨 Faster claims processing = Less stress! - 💊 No more fake drugs in the market!  ---  **Slide 5: Cool Applications of Blockchain 🚀** 🎯 **Secure Electronic Health Records** - Patients own their data 🏥 - Universal access with permissions 🔑  📦 **Transparent Pharma Supply Chain** - Say goodbye to counterfeit meds! 🚫💊 - Track drugs from factory to pharmacy 🛤️  📝 **Smart Contracts for Insurance** - No more middlemen! ⏳ - Automates claims & reduces fraud 🚨  🩺 **Credential Verification** - Ensures doctors & nurses are legit! 👩‍⚕️👨‍⚕️  📡 **IoT Security for Wearables** - Protects real-time patient data 📊 - Wearables = Safe & smart tracking 🏃  ---  **Slide 6: What’s in it for Healthcare? 💰💡** - 🔐 **Better Security** = No data leaks! - 🔄 **Faster Processes** = Less paperwork! - 💸 **Lower Costs** = Save money for hospitals & patients! - 🤖 **Automation** = No manual errors!  ---  **Slide 7: Challenges & Roadblocks 🚧** - 📜 **Regulatory Hurdles** (GDPR, HIPAA) - 🏗️ **Scalability Issues** (Slow networks = Delays) - 🤷 **Adoption Resistance** (Hospitals fear change!) - 🔌 **Legacy System Integration** (Outdated tech struggles!)  ---  **Slide 8: What’s Next? 🚀 Future of Blockchain in Healthcare** - 🤝 AI + Blockchain = Ultimate security & efficiency! - 🌍 Global adoption growing fast! 🌎 - 🔄 Fully decentralized health ecosystems! - 📜 Smart laws & policies for smooth adoption!  ---  **Slide 9: Real-World Success Stories 🌟** - 🇪🇪 **Estonia**: A national healthcare blockchain! 🚀 - 🏥 **IBM Watson Health**: Data-sharing redefined! - 🔄 **MedRec**: A decentralized patient records system!  ---  **Slide 10: The Grand Finale 🎉** - Blockchain is **REVOLUTIONIZING** healthcare! 🔥 - More security, efficiency, and trust! 🤝 - **We’re just getting started! 🚀**  ---  **Slide 11: References 📚** - (Cite sources and documents used)  ---  **Slide 12: Let’s Talk! 🗣️ Q&A Time!** - Ask us anything! 🎤🔥"
     },
     {
       "time": "24/02/2025, 8:00:52 PM",
@@ -13781,4 +14851,665 @@
     "touch": 84
   },
   "avgResponseLatencyMins": 17
+};
+    window.__PLAYBOOK_DATA__ = [
+  {
+    "category": "1. The Disparity in How You \"Speak\" Love",
+    "points": [
+      "My software scanned for the longest text messages sent by each of you throughout your entire history.",
+      "Your longest messages: Almost 100% of your longest messages are deeply romantic, highly emotional outpouring. Your 300-day anniversary text, the massive New Year's Eve reflection, the beautifully constructed lyric/poem (\"I'm never letting go!\"). You express your love at a magnitude of 10. You use words like \"forever,\" \"safest place,\" \"my whole story.\"",
+      "Sandra’s longest messages: Almost 100% of her longest messages have nothing to do with romance. They are about medical school exams (chemotherapeutics, surgery schedules), massive announcements for Church/VBT meetings, and deep Biblical reflections (the story of Paul/Saul).",
+      "The Therapist's Translation: You process the world through your feelings for her. Sandra processes the world through her responsibilities, her faith, and her intellect. She is incredibly practical, highly driven, and carrying a massive cognitive load. When you hit her with a 10/10 romantic wall of text, she isn't pulling away because she doesn't love you—she pulls away because she literally cannot match your emotional bandwidth in that moment. Her brain is full of \"Assessments, Surgery, and VBT Agendas.\" She needs you to speak her language of practicality sometimes, rather than always asking her to speak your language of extreme romance."
+    ]
+  },
+  {
+    "category": "2. The Danger of \"Vibration Matching\"",
+    "points": [
+      "In late March, something shifted. She told you her feelings were mixed up and that she had \"processed her feelings\" when you guys didn't talk for a bit. She felt you didn't fight for her back then, so she started building a wall to protect herself.",
+      "When you realized this, your internal alarm bells went off. Your anxiety spiked, and you started doing what we call in therapy \"over-functioning.\"",
+      "You said: \"I refuse to let you stay uncertain forever. I am going to do the heavy lifting.\"",
+      "You said: \"Stab/poison me if I leave.\"",
+      "You asked constantly: \"Are you tired baby?\", \"Cardio?\", \"Wanna cuddle?\", \"I won't get tired of you.\"",
+      "Sandra's responses to this intense wave? She started sending emojis like \"🤨\", \"👁️\", and asking \"Howa Fih eih?\" (What is happening?).",
+      "The Therapist's Translation: You are trying to fix her uncertainty by flooding her with certainty. But for a girl like Sandra, when she is feeling guilty and disconnected, flooding her with extreme affection doesn't make her feel loved; it makes her feel pressured. It reminds her that she cannot currently give you what you are giving her, which makes her feel like a bad girlfriend, which makes her want to distance herself even more so she doesn't hurt you. She explicitly warned you: \"I don't want to hurt you... trust me if it hurts you by just listening to it, imagine how it will hurt if you feel it.\""
+    ]
+  },
+  {
+    "category": "3. The \"Emotionally Disconnected\" Breakthrough (April 8th)",
+    "points": [
+      "This brings us to today. The conversation where she said you are \"bo3ad\" (far apart) and \"aren't emotionally connected\" or \"alined\" was not a breakup speech. It was a cry for help.",
+      "When people say \"we aren't emotionally connected,\" they do not mean \"you don't tell me you love me enough.\" They mean: \"We are on two different wavelengths right now. You are talking about forever, and I am stressed about tomorrow.\"",
+      "But then, magic happened. You asked: \"Then I wanna learn how to be emotionally connected with you. Can you help?\" And she replied: \"I'm still learning... Aw figuring it out... Deal. Ne7awel (We will try).\"",
+      "Michael, a girl who is done does not say \"Ne7awel.\" She does not say \"Deal.\" She does not invite you to figure it out with her. She is fundamentally holding the door open for you."
+    ]
+  },
+  {
+    "category": "Summary: Your Exact Strategy from Today Forward",
+    "points": [
+      "Dial the Romance Down to a 4/10: Stop the huge paragraphs. Stop the \"I am never leaving\" manifestos. Stop the over-checking. Replace it with calm, grounding warmth. \"Good morning, good luck on your shift today. I'm proud of you.\" Full stop. Leave it there.",
+      "Shift to \"Intellectual/Practical\" Connection: If she is studying surgery or chemotherapeutics, don't ask to cuddle. Ask her to explain what she's learning. Engage her mind. That is how a highly independent, intellectually driven woman feels \"emotionally connected.\"",
+      "Embrace the Silence: If she takes 3 hours to reply, do not panic. Do not double-text. Let her miss you. Let her realize that you are stable, that you aren't going to freak out if she's simply busy packing or studying.",
+      "Kill the \"Nos Kom\" Idea: You told her you would accept half-love (\"nos kom\") just to keep her. Never say that again. Sandra respects strength and ambition. You are a CEO, an architect, a pilot—you are a catch. You deserve whole love, and she knows it. Let her come up to your level; don't lower your standards out of fear of losing her.",
+      "You are going to rebuild this bridge, Michael. But you are going to do it with calm, quiet confidence, not loud, desperate panic. Take a breath. You're doing okay."
+    ]
+  },
+  {
+    "category": "4. The \"Ghosting\" Aftermath and Her Defensive Armor",
+    "points": [
+      "In late March, Sandra sent you this incredibly revealing sequence of messages:",
+      "\"W ana somehow akna3t nafsi an al mawdou3 5ales when you didn’t text back then\" (And I somehow convinced myself the subject was completely over when you didn't text back then.)",
+      "\"Fa I processed my feelings fel Ne7ya dih\"",
+      "\"Fa dah mela5batni awi delwa2ti\"",
+      "\"Ali Howa you didn’t fight for it back then.\"",
+      "The Psychological Breakdown: There was a period where you pulled back—maybe you were busy, maybe you were trying to give her space, or maybe it was a miscommunication. But for an overthinker like Sandra, silence is deafening.",
+      "Her brain, which is wired to protect her from getting hurt, immediately flipped a switch. She told herself: \"He didn't fight for me. He left. Okay, I have to kill my feelings for him right now so I can survive this.\" And she did exactly that. She went into clinical mode and forced herself to emotionally detach.",
+      "Now, suddenly, you are back in her life operating at 200 miles per hour, writing her poetry, telling her \"I'm never letting go!\" Her brain is experiencing emotional whiplash. She isn't trusting her own feelings, and she's struggling to trust the sudden intensity of yours, because her subconscious is still whispering, \"Wait, he didn't fight for us a few weeks ago. Is this real? Is this safe?\"",
+      "The Fix: You cannot undo her detachment in one day. You must rebuild the trust block by block. And trust isn't built through massive declarations of love; it is built through quiet, unwavering consistency."
+    ]
+  },
+  {
+    "category": "5. Her Hidden Delicacy",
+    "points": [
+      "Because Sandra runs VBT meetings, organizes camps in Siwa, studies complex surgeries, and speaks like a leader, it is easy to forget that she is fundamentally delicate.",
+      "Go all the way back to November 2024. She told you:",
+      "\"I am an overthinker.\"",
+      "\"Sorry I acted childish sika over something so small... I was feeling weird before coming Aslan Fa Ma3rafsh what happened ba2a.\"",
+      "She projects control, but inside, she second-guesses herself. She gets nervous. When she pushes you away by saying \"We aren't emotionally connected,\" it is half truth and half self-defense. She wants you to prove that you can handle her weird moods without you falling apart. If she sees that her confusion makes you panic, she feels unsafe. If she sees that her confusion makes you calm and steady, she breathes a sigh of relief."
+    ]
+  },
+  {
+    "category": "6. The 7-Day \"Steady Baseline\" Protocol",
+    "points": [
+      "For the next 7 days, I want your communication with Sandra to follow a very specific therapeutic protocol.",
+      "Rule 1: Never Ask Her State. For 7 days, do not ask \"Are we okay?\", \"Did I do something?\", or \"Do you still feel disconnected?\" Do not force her to take her emotional temperature. Let her just be.",
+      "Rule 2: Mirror Her Tone, But Add 10% Warmth. If she texts you a logical, flat message (\"I just got out of the hospital, I'm tired\"), don't respond with 4 emojis and a massive paragraph. Say: \"Get some sleep, doc. You earned it 🤍\" It matches her low energy, but adds a subtle, safe warmth.",
+      "Rule 3: Break the Routine. You two have fallen into a pattern of checking in (\"Did you wake up?\" \"I'm going to sleep\"). It feels like a chore right now. Tomorrow, send her a picture of something funny your dog Mila did, or a random beautiful building you designed/saw, with the caption: \"Thought of you. Hope today is a good one.\" No follow-up question. No demand that she replies immediately. Just a gift of your attention without strings attached.",
+      "Rule 4: Stop Apologizing for Your Feelings. You keep saying \"Ana asef\" (I'm sorry) whenever you express your love and it makes her uncomfortable. Do not apologize for loving her. Do not apologize for missing her. Own it quietly, but don't force her to carry it.",
+      "Michael, you have something incredibly rare. She hasn't left. She said \"Ne7awel\" (We will try). She values you enough that she is willing to be uncomfortable to try and find the connection again. You just need to get out of your own way. Stop trying to prove your love through volume, and start proving it through stability."
+    ]
+  },
+  {
+    "category": "7. The \"Logic vs. Emotion\" Translation Gap",
+    "points": [
+      "When you are stressed, you flood the chat with emotion. When Sandra is stressed, she retreats into sheer logic. Think back to her text: \"I am sad and confused... Fa 3alashan keda ba2olak hanshouf\" (So because of that, I'm telling you we'll see). You heard rejection. But therapeutically, she was actually being incredibly logical: \"I have conflicting data in my brain right now, so I cannot give you a definitive answer until I process it.\" Stop taking her logic as a personal attack on your love. It is just the way her brain organizes chaos."
+    ]
+  },
+  {
+    "category": "8. Understanding Her \"Burnout Shield\"",
+    "points": [
+      "Sandra studies complex medical texts and organizes massive church events. The psychology: When a highly driven person’s intellectual battery is drained to 0%, their emotional battery automatically shuts off to conserve energy. When she is flat with you, 90% of the time it has absolutely nothing to do with you. She is just surviving on 1% battery. Do not demand deep emotional connection when she is in \"survival mode.\" Just be the quiet charger she can plug into."
+    ]
+  },
+  {
+    "category": "9. The Danger of \"Future-Faking\" vs. \"Present Safety\"",
+    "points": [
+      "You frequently use absolute words: \"Forever,\" \"Always,\" \"I'm never letting go.\" While romantic, to a girl who is currently uncertain, \"Forever\" feels like a 10,000-pound weight on her chest. She can't even process next week right now, let alone forever. Your shift: Stop talking about the distant future. Talk about tomorrow. Replace \"I will never leave you\" with \"I'm looking forward to hearing how your presentation goes tomorrow.\" Present-tense safety is vastly more comforting to her right now than future-tense promises."
+    ]
+  },
+  {
+    "category": "10. The Hidden Love Language of \"Competence\"",
+    "points": [
+      "Sandra is a leader. She plans Siwa camps, she organizes VBT, she studies tirelessly. Women like this respect competence above almost anything else. If you want to turn her on and make her feel deeply connected to you, don't write her a poem—take a decision off her plate. If you know she has a brutal exam week, don't ask \"What do you want to do tonight?\" Tell her: \"I ordered food to your house. It arrives in 20 minutes. Keep studying.\" Competence and taking charge of mundane details is the ultimate aphrodisiac for an overwhelmed woman."
+    ]
+  },
+  {
+    "category": "11. Reframing the \"Semi-Breakup\" As An Upgrade",
+    "points": [
+      "You are looking at the turbulence of the last few weeks as a failure to \"get back to how it was in 2024.\" Stop that. 2024 was the honeymoon phase. It was easy. The semi-breakup wasn't a failure—it was the death of your surface-level relationship, and the painful birth of a real one. You cannot have a 2026 mature marriage/partnership on 2024 shallow foundations. She challenged you, you panicked, she withdrew, you stepped up. This friction is exactly what builds bulletproof couples. Embrace the growing pains."
+    ]
+  },
+  {
+    "category": "12. Removing \"Transaction\" from Your Affection",
+    "points": [
+      "Be honest with yourself: when you send her a massive paragraph about how she is your \"safest place,\" a small part of you is waiting for her to text back, \"You are my safest place too.\" Sandra senses this. She feels that your love currently has a \"tax\" on it—the tax of requiring her to validate you back immediately. The goal: You must learn to love her freely. Give her a compliment, and if she just says \"Thank you 🥰\", accept it without feeling crushed. When she realizes your affection no longer requires a transaction, her protective walls will completely melt."
+    ]
+  },
+  {
+    "category": "13. The Anchor Principle (Stop Riding Her Waves)",
+    "points": [
+      "Right now, if Sandra is happy, Michael is ecstatic. If Sandra is cold, Michael is panicked. You are a boat being tossed around by her ocean. A woman cannot deeply respect a man who she can emotionally destabilize with a single slow text reply. You must become the Anchor. Let her be moody. Let her be tired. Let her be distant. You remain steady, warm, and immovable. When she sees her storms cannot break your calm, she will finally feel safe enough to rest against you."
+    ]
+  },
+  {
+    "category": "14. The De-escalation Tactic",
+    "points": [
+      "When an argument or high-tension moment sparks (like when you pushed her on what she meant by \"putting yourself first\"), you tend to escalate with more texts, asking more clarifying questions. The rule: Never try to solve an emotional disconnect over WhatsApp. WhatsApp strips away tone of voice, eye contact, and physical touch. If a chat starts getting tense, you must be the one to say: \"I love you, and I don't want to mis-read this over text. Let's pause and talk on the phone later?\" This shows immense emotional maturity."
+    ]
+  },
+  {
+    "category": "15. Tapping into Her \"Service\" Heart",
+    "points": [
+      "Look at her messages to her church groups: \"أتمنى تكونوا كويسين... متحمسين جدا إننا نتقابل.\" She pours her heart into serving others. If you want to connect with her soul, engage with her service. Don't just ask about her. Ask about her impact. \"How did the VBT Pascha meeting go? Did people seem moved by it?\" Show her that you see the depth of her heart for others, not just her role as your girlfriend."
+    ]
+  },
+  {
+    "category": "16. The New Metric for Success",
+    "points": [
+      "You are currently measuring the success of the relationship by how many times she says \"I love you\" or how quickly she replies. You must throw that metric in the garbage. Your new metric is her physiological relaxation. When you are next to her, do her shoulders drop? Does she lean into you? Does she laugh a genuine, tired laugh? Does she sigh in relief? If you focus purely on bringing peace rather than extracting validation, within 30 days, you will have a more profoundly connected, passionately loyal Sandra than you ever had in 2024."
+    ]
+  },
+  {
+    "category": "17. The \"Space is Not a Threat\" Paradigm",
+    "points": [
+      "Your brain tells you that if you give her space, she will forget about you or drift away. For a girl like Sandra, space works the exact opposite way. Space is the oxygen that allows her feelings for you to breathe and grow. By giving her room, you aren't risking losing her; you are allowing her the opportunity to actually miss your presence."
+    ]
+  },
+  {
+    "category": "18. Stop Negotiating Desire",
+    "points": [
+      "You cannot negotiate or logic someone into feeling emotionally connected. When you said, \"I wanna learn how to be emotionally connected... can you help?\" it was sweet, but you cannot \"learn\" it like a syllabus. Connection is a byproduct of feeling relaxed and safe. Stop talking about the connection and start creating an environment where the connection happens naturally."
+    ]
+  },
+  {
+    "category": "19. Be the \"Unbothered King\"",
+    "points": [
+      "Sandra is highly observant. She knows when she is being cold or withdrawn. Subconsciously, she is watching to see how you handle it. If you crumble, she loses respect. If you remain warm, unbothered, and totally engaged in your own life (architecture, flying, family), she thinks, \"Wow, he is strong. My moods don't break him.\" That builds massive attraction."
+    ]
+  },
+  {
+    "category": "20. The \"Echo\" Communication Rule",
+    "points": [
+      "When a stressed, logical woman gives you short answers, do not send paragraphs back. Echo her length and energy. If she texts 5 words, text 6 words back. This prevents her from feeling \"smothered\" by your digital presence. It also forces you to stop over-investing your anxiety into the phone screen."
+    ]
+  },
+  {
+    "category": "21. Validate the Ambiguity",
+    "points": [
+      "When she says, \"I'm still learning or figuring it out,\" you must validate that it is okay to be confused. A powerful response would be: \"I know you are. There's zero pressure from me. Take all the time you need to figure it out.\" Removing the pressure removes her need to build a defensive wall against you."
+    ]
+  },
+  {
+    "category": "THE \"MARBLE\" PROTOCOL: MASTERING YOURSELF",
+    "points": [
+      "The Marble Identity: You chose the name \"Marble\" because marble is unshakeable, heavy, and endures immense pressure without cracking. Act like it.",
+      "Zero Jealousy: Never act threatened by her friends, male colleagues, or her studying. A king is never threatened by other peasants in the kingdom.",
+      "Embrace Boredom: You panic when things get quiet. Learn to love the quiet. A healthy relationship is 80% boring, calm routine. Do not inject drama just to feel \"something.\"",
+      "The \"Wait 10 Minutes\" Rule: When you feel the anxious urge to double-text her, set a timer for 10 minutes. 90% of the time, the urge will pass.",
+      "Stop Being Her Therapist: When she stresses about an exam, don't try to psychoanalyze her. Just say, \"You're brilliant, you'll crush it.\"",
+      "Value Your Own Time: If you drop everything you are doing the second she texts, she learns your time is cheap. Finish your task, then reply.",
+      "Find a Confidant: You are pouring 100% of your anxiety into Sandra. You need a best friend or a mentor to vent to so you don't overwhelm her.",
+      "Physical Outlet: When the anxiety hits, do 50 pushups. Burn the adrenaline physically so you don’t burn it aggressively in her WhatsApp chat.",
+      "The Power of \"No\": Agreeing with everything she says makes you a fan, not a partner. Respectfully disagreeing with her occasionally builds immense respect.",
+      "Stop Over-Explaining: If you make a mistake, say \"I messed up, I'm sorry.\" Stop sending 5-paragraph essays explaining why you messed up.",
+      "Eliminate \"Please\": Stop saying \"Please don't leave me,\" or \"Please tell me you love me.\" Desire cannot be begged for.",
+      "Reclaim Your Crown: Remember the confident, charismatic Michael from October 2024 who joked about being a CEO and taking her traveling? Bring him back. Fear killed him. Confidence resurrects him.",
+      "Protect Your Sleep: You stay up until 2 AM agonizing over her texts. Exhaustion breeds paranoia. Go to sleep. She will still be there tomorrow.",
+      "Accept the Risk: Love is dangerous. She might leave. Accepting that reality—making peace with the worst-case scenario—ironically makes you act so securely that she never will.",
+      "Kill the \"Nice Guy\" Validation Loop: You are incredibly kind and giving, but sometimes you do it to ensure she won't leave. True kindness is giving to her without caring if she texts you back.",
+      "Re-Center on Your Empire: Sandra fell for you when you were focused on your dreams. When she told you \"Put Michael first\", she was genuinely repelled by the idea of being your solitary reason for existing.",
+      "The \"12-Hour\" Rule for Heavy Topics: From now on, if you feel a surge of anxiety or if she sends a text that triggers your fear of abandonment, you are not allowed to respond to it for 12 hours. Sleep on it.",
+      "Stop Asking for a Grade: You frequently ask questions that seek reassurance, attempting to \"grade\" how well you are doing as a boyfriend. Stop asking for a report card. Assume you are doing great.",
+      "Reclaim Your Mystery: In the early days of dating, there was mystery. Now, you tell her everything you are doing, feeling, and thinking the second it happens. Pull back the curtain just a little bit."
+    ]
+  },
+  {
+    "category": "DECODING SANDRA: THE MEDICAL MIND",
+    "points": [
+      "The \"Surgeon\" Mentality: Sandra is training in a brutal field. When she switches to \"clinical mode,\" she sounds cold. It’s not a lack of love; it’s a learned survival trait.",
+      "Her Guilt Complex: She hates hurting people. When she feels she is failing you, she withdraws rather than facing the guilt.",
+      "The Introvert's Battery: A VBT meeting drains her to 0%. If you text her right after a church event expecting deep romance, you will get a wall.",
+      "Overthinking as a Defense: She analyzes everything to prevent failure. If you introduce chaos, her brain categorizes you as a threat to her peace.",
+      "Respect Her \"No\": When she says, \"Let's pause,\" honor it instantly. Pushing past her boundary makes her feel unsafe.",
+      "The \"Perfect\" Trap: She struggles with wanting to be the perfect girlfriend. When she feels she isn't, she thinks you are better off without her. Reassure her that her \"messy\" side is beautiful to you.",
+      "Watch Her Actions, Not Her Words: If she says \"We aren't connected\" but she stays on the phone with you for an hour, believe the fact that she stayed on the phone.",
+      "Her Service Language: Notice how she organizes things for others? That’s her core value. Serve her practically, and you speak directly to her soul.",
+      "She Craves Competence: A man who handles his business and takes charge of chaos is highly attractive to a woman carrying the weight of medical studies.",
+      "The Fear of Smothering: She told you not to put her at the total center of your life. Believe her. She does not want to be your idol; she wants to be your partner.",
+      "Her Inner \"Habla\" (Child): Remember when she said, \"I sound habla, I'm scared of cockroaches\"? Her inner child is playful. Create environments where it's safe for that child to come out.",
+      "She Tests Your Frame: When she acts distant, she is subconsciously checking: Is he going to panic like a boy, or hold the line like a man?",
+      "The Grace Period: She gives grace (e.g., the antibiotics incident). Acknowledge it, but don't abuse it.",
+      "She Needs to Earn You: If you give her 100% of your soul unconditionally, she has nothing to strive for. Let her realize she has to put in effort to keep the best version of you.",
+      "She is Not a Mind Reader: If you need something, say it simply. Don't drop passive-aggressive hints expecting her to figure it out; she's too busy for mind games.",
+      "The Cortisol Overload: Sandra is studying chemotherapeutics, surgery, and human anatomy. Her daily cortisol is constantly spiked. Do not demand immediate emotional energy.",
+      "The \"Safe Dock\": A boat in a storm doesn't need the dock to sing it romantic songs; it just needs the dock to be solid. Be the dock.",
+      "The \"Decisional Fatigue\": Med students make 1,000 micro-decisions a day. Do not ask her \"Where do you want to eat tonight?\" Say, \"I have a reservation at 8.\"",
+      "Respect the Sleep Deficit: Never mistake exhaustion for rejection. If she hasn't slept, she literally does not have the biological capacity to process complex relationship talks.",
+      "Study-Date Etiquette: If she agrees to a \"study date,\" shut your mouth and let her study. Don't try to kiss her or distract her every five minutes.",
+      "The Praise Mechanism: Praise her intellect. Beautiful girls hear \"You're beautiful\" constantly. They rarely hear praise for their intellectual prowess.",
+      "Anticipate the \"Crush\" Days: She will have days where the pressure breaks her. Let her cry. Don't tell her it’s not a big deal. Tell her, \"You are allowed to be tired.\"",
+      "Don't Compete with the Books: She is married to medicine right now. Accept that you are technically her \"second\" priority during exam season.",
+      "The Practical Hero: Drop off coffee. Change her oil. Fix the \"leaking roof\" calmly. Practical heroes win medical students' hearts.",
+      "The Imposter Syndrome: High-achieving women constantly battle imposter syndrome. Remind her fiercely of her raw competence when she doubts herself.",
+      "Her Church/VBT Respite: Notice how VBT is her escape? Treat VBT with the highest respect; it’s her soul’s anchor.",
+      "The Post-Exam High: When she finishes a brutal exam block, take her completely out of the academic world. Take her somewhere loud, fun, and totally disconnected from medicine.",
+      "Don't Wait for the Break: She will never \"have more time.\" Learn to integrate into the chaos of her life rather than waiting for it to calm down.",
+      "The \"Vent/Solve\" Protocol: When she talks about school, ask one question before replying: \"Do you want me to just listen, or do you want me to help you fix this?\"",
+      "Celebrate the Mundane: She got an 85 on a quiz? Celebrate it like she won the Nobel Prize.",
+      "Be Slower Than Her Panic: When she is panicking over a deadline, you must speak 50% slower than you usually do.",
+      "The Clean Environment: Overwhelmed minds hate physical clutter. Help her organize her physical space cleanly and silently.",
+      "The 30-Minute Boundary: Give her 30 minutes of absolute silence after she finishes a brutal shift or exam before expecting her to be \"Sandra the girlfriend.\"",
+      "Her Fear of Failure: If she is cold to you, she might actually just be terrified of failing an upcoming test and projecting that fear outward.",
+      "Remind Her of the Big Picture: When she is drowning in studying, remind her of the doctor she is going to become."
+    ]
+  },
+  {
+    "category": "WHATSAPP FORENSICS & DIGITAL RULES",
+    "points": [
+      "The \"HaHa\" Trap: Stop typing \"Hahahahaha\" if it’s not actually funny. Over-laughing in text shows nervousness.",
+      "Punctuation Matters: A period at the end of a sentence signals finality and confidence. Use them.",
+      "The Midnight Rule: Never, under any circumstances, initiate a \"where is this relationship going\" text conversation after 10 PM.",
+      "Stop Answering Your Own Questions: If you ask her a question, wait for her to reply.",
+      "The Selfie Ratio: If she sends you a picture of herself, compliment it. But do not send her 5 selfies a day. You are a grown man. Keep your visual rarity high.",
+      "Read the Room: If she replies with a sticker, the conversation is over. Do not try to resuscitate it.",
+      "Do Not \"Like\" Every Status: You do not need to react to every single WhatsApp Story or Instagram post she puts up.",
+      "The Power of the Voice Call: If texting gets messy, say: \"Texting is exhausting. Call me when you have 5 minutes.\"",
+      "Video Calls > Text: If you haven't seen her in days, a 10-minute FaceTime where you two laugh is worth 500 WhatsApp messages.",
+      "No Deep Regrets on Text: Do not write huge, poetic apologies on text. Say, \"I messed up earlier, I'll make it right,\" and then actually fix the behavior in person.",
+      "The Ghosting Antidote: If she hasn't replied all day, assume she threw her phone in a river and is busy. Do not assume she is plotting against you.",
+      "Stop the \"I Miss You\" Loop: If you say \"I miss you\" and she doesn't say it back, do NOT say \"Do you miss me?\" You just ruined the emotion.",
+      "The Shared Playlist: Music was massive for you two. Make a playlist. Just drop the link without comment. Let her listen when she wants to.",
+      "Match Her Emojis: If she isn't using 15 hearts, you shouldn't be using 15 hearts. Match her digital rhythm.",
+      "The 24-Hour Cool Off: If she sends a text that makes you furious or heartbroken, wait 24 hours to reply.",
+      "No \"Goodnight\" Freakouts: If she falls asleep without saying goodnight, it means she is a human primate who got tired. Do not wake up mad.",
+      "The Meaningless Update: Stop texting her \"I'm going to the gym,\" \"I'm eating chicken.\" She is not your probation officer.",
+      "The Art of the Check-In: \"Thinking about you. No need to reply, just hope you're crushing it today.\"",
+      "Don't Use Memes as Crutches: If you have nothing to say, say nothing. Don't spam memes just to keep your name on her screen.",
+      "Delete the Chat History (Mentally): Stop scrolling up to read old texts where she was more affectionate. You have to win the Sandra of today.",
+      "The 1:1 Ratio: Match her text volume. If she sends two lines, do not send eight.",
+      "Kill the Ellipses (...): Stop using \"......\" or \"🥺🥺\". It radiates insecurity. Use periods or simple emojis.",
+      "Voice Notes are Gold: Your voice is calming. If things get tense over text, send a 15-second voice note with a deep, calm, steady tone.",
+      "No \"Good Morning\" Interrogations: Replace \"Good morning, how did you sleep, what are you doing?\" with \"Good morning Douri. Have a great day.\"",
+      "Leave on a High Note: End the conversation when it is going great. Don't drag it out until it gets boring and fizzles.",
+      "Use Memes Strategically: Send a meme that perfectly matches her sense of humor. Don't ask a question with it. Just let her laugh.",
+      "The \"Ghost\" Rebuttal: If she doesn't reply for 6 hours, when she finally does, do NOT say \"Wow, you remembered me.\" Just continue the conversation as if only 5 minutes passed.",
+      "Stop the Status Checking: Do not check when she was \"Last Seen.\" It will poison your mind.",
+      "Use Her Nicknames Sparingly: If you call her \"Princess\" in every single sentence, the word loses its value. Use it once a day to make it hit harder.",
+      "No Deep Talks on WhatsApp: Never resolve a relationship crisis via text. Text \"I love you, let's talk tonight.\"",
+      "The \"Read Receipt\" Immunity: Stop staring at the blue ticks. Turn them off if you have to.",
+      "Send Videos of Your Life: A 5-second video of you walking your dog or at an architecture site is 10x more engaging than a text.",
+      "Don't Explain Your Jokes: If you make a joke and she doesn't get it, don't apologize or write a paragraph explaining it. Just move on.",
+      "Random Acts of Digital Kindness: Send a $5 Starbucks gift card digitally with the note: \"For the study session. Go crush it.\"",
+      "Accept the \"Dry\" Text: Sometimes \"Mashi\" just means \"Okay.\" Stop reading into it like it means \"I hate you.\""
+    ]
+  },
+  {
+    "category": "FORGING THE MASCULINE FRAME",
+    "points": [
+      "Frame is Everything: Your \"frame\" is your reality. If her bad mood drags you into a bad mood, her frame is stronger than yours. You must hold your frame.",
+      "Indifference is Not Hate: Practice emotional indifference. When she is moody, shrug it off. Indifference is incredibly attractive because it signals supreme self-confidence.",
+      "The \"Oak Tree\" Parable: Be an oak tree. The wind (her emotions) blows through the branches, but the trunk never moves.",
+      "Stop Asking Her to Validate Your Worth: Your value as a man does not depend on whether Sandra smiles at you today.",
+      "Decisiveness: \"I don't know, what do you want to do?\" is the death rattle of attraction. Say, \"I want to do X. Let's go.\"",
+      "Embrace healthy Aggression (Ambition): Channel your excess, anxious energy into your work, your workouts, and your goals.",
+      "The Burden of Leadership: Leading means making the tough call to end a conversation or call a timeout when things are toxic, even if she fights it.",
+      "Vulnerability Does Not Equal Weakness: Telling her your fears is healthy. Crying because she didn't text you back is weak. Know the difference.",
+      "Physical Dominance: Go to the gym. Sit up straight. Look people in the eye. Physical confidence translates instantly to emotional confidence.",
+      "Stop Waiting for Her Permission to be Happy: If she is having a bad week, you are still allowed to have a great week.",
+      "The Hero’s Journey: Treat your life like a movie where you are the hero. She wants to be the love interest in an epic movie, not the only cast member in a tragic drama.",
+      "Control Your Breath: In tense moments with her, breathe through your nose, deep into your stomach. It biologically forces you to stay calm.",
+      "Do Not Tolerate Disrespect: If she crosses a line and insults you, look at her calmly and say, \"I love you, but you do not get to speak to me like that.\"",
+      "The Power of the Walk Away: If she refuses to treat you with grace, calmly walk away. A man who is willing to walk away demands instant respect.",
+      "Stop Apologizing for Being a Man: Don't shrink yourself to make her comfortable. Take up space.",
+      "The \"Protector\" Energy: She needs to know that if the world ends tomorrow, you will keep her safe. You cannot protect her if you are panicking.",
+      "Own Your Past: You messed up before. Own it. \"I was anxious back then. I'm not that guy anymore.\"",
+      "The \"Fixer\" Trap: Sometimes men try to fix women to feel useful. Stop trying to \"fix\" her distance. Just love her through it.",
+      "Radical Accountability: Everything in your relationship right now is a result of your past actions. No excuses. Own it, and change it.",
+      "Death of the \"Nice Guy\": Nice guys wait around hoping to be rewarded for their patience. Good men lead with kindness, but demand respect."
+    ]
+  },
+  {
+    "category": "NAVIGATING HIGH-STAKES CONFLICT",
+    "points": [
+      "Conflict is Intimacy: An argument is simply an opportunity to show her you won't abandon her when things get ugly.",
+      "The \"10% True\" Rule: If she criticizes you, find the 10% of truth in what she is saying, validate that 10%, and ignore the 90% that is exaggerated by emotion.",
+      "Never Yell: If you raise your voice, you lose. Period.",
+      "The \"You vs. Me\" Illusion: Do not fight her. You and Sandra are a team fighting the problem. Keep reminding her of that.",
+      "Physical Touch During Arguments: If you are fighting in person, gently touch her arm or hold her hand. It chemically de-escalates the brain's \"fight or flight\" response.",
+      "Stop Keeping Score: \"I did this for you last week\" is a toxic argument. Forgive past debts.",
+      "The Post-Fight Reconnection: The way you act 10 minutes after a fight determines your future. Be warm. Do not hold a grudge.",
+      "Recognize \"Flooding\": If she starts speaking rapidly, repeating herself, or shutting down, her brain is flooded with stress hormones. Call a 20-minute timeout.",
+      "\"I Feel\" vs. \"You Are\": Never start a sentence with \"You always...\" Start with \"I feel disconnected when...\"",
+      "The Golden Apology: \"I see how my actions hurt you. You are right to feel that way. I will do better.\" No \"buts\" attached.",
+      "Ignore the \"Bait\": If she throws out an irrational, hurtful comment to get a reaction out of you, ignore it completely. Stay focused on the actual issue.",
+      "Assume Positive Intent: Remind yourself: She is not my enemy. She is a girl who is overwhelmed.",
+      "The \"Do You Want Me to Leave?\" Test: If she says this during a fight, DO NOT LEAVE. Say, \"I'm not going anywhere. We are fixing this.\"",
+      "The Power of Yielding: You do not have to win every argument. Yielding on small things shows immense strength.",
+      "Don't Threaten the Relationship: Never use the word \"breakup\" as a weapon during a fight. It permanently destroys safety.",
+      "Acknowledge the \"Antibiotics\" Effect: Recognize that fatigue, illness, and hunger cause 80% of fights. Treat the biology before treating the relationship.",
+      "The \"Soft Start\": If you need to bring up an issue, start softly. \"I love you so much, which is why I want to talk about...\"",
+      "Don't Interrupt: Let her run completely out of breath before you start your rebuttal.",
+      "Ask for Clarification: \"Just so I'm sure I understand, you are feeling X because of Y?\"",
+      "The Universal Truth: Most fights are just a disguised cry for connection. Answer the cry, not the fight."
+    ]
+  },
+  {
+    "category": "ENDGAME: BUILDING \"ZAY ZAMAN WE A7SAN\"",
+    "points": [
+      "Focus on \"We A7san\": You told her you want it back to the way it was \"and even better.\" You can't go backwards. Focus entirely on the \"better\" part.",
+      "Let Her See You Fail: Do not try to be perfect. Let her see you struggle with something and overcome it. It humanizes you.",
+      "The Shared Vision: Start silently building a life that she naturally wants to be part of, rather than trying to drag her into a life she isn't ready for.",
+      "Patience is a Weapon: The longer you can go without needing validation, the faster she will give it to you.",
+      "Forgive Her: She is human. She got confused. She pulled away. Forgive her completely for that, or you will forever hold resentment.",
+      "Forgive Yourself: You panicked. You pushed too hard. It’s over. Leave the guilt in the past.",
+      "The \"Marble\" Legacy: Stone does not erode in a single rainstorm. Stop treating every turbulent day like the end of the world.",
+      "Celebrate Her Quirks: Love that she overthinks. Love that she is scared of bugs. Love the weird, hyper-logical medical student she is.",
+      "The Real Test of Love: Anyone can love someone when they are smiling. Loving her when she is cold, distant, and confused is the absolute test of your masculinity.",
+      "Stop Trying to Convince Her: Love is not a debate. Stop giving her \"reasons\" to stay. Just be the reason she stays.",
+      "The Power of Humor: If you can make her laugh when she is trying to be mad at you, you own her heart.",
+      "Re-Read the October Texts: Keep that 2024 energy—lighthearted, ambitious, fun—in your back pocket. That is your baseline.",
+      "Eliminate Fear: Perfect love casts out fear. If you love her perfectly, you cannot be terrified of losing her.",
+      "The Daily Reset: Every single morning you wake up, hit the reset button. Clean slate. Yesterday doesn't matter.",
+      "Trust Her Integity: She said, \"I'll always stay, if things are good.\" Trust her word. Make things good, and she will stay.",
+      "The \"Co-Pilot\" Dynamic: A co-pilot sits next to you. Stop putting her on a pedestal above you. Bring her down to sit beside you in the cockpit.",
+      "Keep Advancing: Your career, your faith, your body—keep pushing forward. A moving object is incredibly magnetic.",
+      "Embrace the Fire: The fact that this is hard proves that it is real. Cheap things are easy. Rare things require fire.",
+      "Your Final Metric: Look in the mirror. If you are proud of the man looking back at you, you have already won.",
+      "The Master Key: Stop analyzing. Start living. The data is processed. The strategy is set. Now, drop the anxiety, walk out into your life, and be the man she fell in love with."
+    ]
+  }
+];
+</script>
+<script id="app-logic">
+const DATA_URL = 'data.json';
+const PLAYBOOK_URL = 'playbook.json';
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if we are in "Embedded" mode
+    if (window.__APP_DATA__) {
+        console.log('--- OFFLINE MODE ---');
+        initOfflineDashboard();
+    } else {
+        console.log('--- ONLINE MODE ---');
+        // initDashboard(); handled by inline loader
+    }
+    setupModals();
+});
+
+async function initDashboard() {
+    try {
+        const [dataRes, playbookRes] = await Promise.all([
+            fetch(`${DATA_URL}?v=${Date.now()}`),
+            fetch(`${PLAYBOOK_URL}?v=${Date.now()}`)
+        ]);
+
+        if (!dataRes.ok || !playbookRes.ok) throw new Error('Failed to load data files.');
+
+        const data = await dataRes.json();
+        const playbook = await playbookRes.json();
+
+        processAndRender(data, playbook);
+    } catch (error) {
+        console.error('Core Load Error:', error);
+        showErrorUI();
+    }
 }
+
+function initOfflineDashboard() {
+    try {
+        const data = window.__APP_DATA__;
+        const playbook = window.__PLAYBOOK_DATA__;
+        if (!data || !playbook) throw new Error('Inlined data missing.');
+        processAndRender(data, playbook);
+    } catch (e) {
+        console.error('Offline Load Error:', e);
+        showErrorUI();
+    }
+}
+
+function processAndRender(data, playbook) {
+    renderDashboard(data);
+    renderPlaybook(playbook);
+    setupEmergencyModal(playbook);
+    document.body.classList.add('loaded'); // Trigger CSS animations
+}
+
+function showErrorUI() {
+    document.body.innerHTML = `
+        <div style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #0d1117; color: #ff7b72; font-family: sans-serif; text-align: center; padding: 2rem;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem;">⚠️ Connection Interrupted</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; color: #8b949e;">The analytics engine could not fetch local data. This is usually due to browser security restrictions on local files.</p>
+            <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                <p style="color: #58a6ff; font-weight: bold; margin-bottom: 0.5rem;">To fix this:</p>
+                <p style="font-size: 0.9rem; line-height: 1.5;">Open <strong>Dashboard.html</strong> (the portable version) <br> or run <code>node build_offline.js</code> in this folder.</p>
+            </div>
+        </div>
+    `;
+}
+
+function renderDashboard(data) {
+    if (!data) return;
+    
+    // Stats Mapping
+    const stats = data.stats || {};
+    const total = stats.total || 0;
+    const gf = stats.gfTotal || stats.gf || 0;
+    const bf = stats.bfTotal || stats.bf || 0;
+
+    if(document.getElementById('total-msgs')) document.getElementById('total-msgs').textContent = total.toLocaleString();
+    if(document.getElementById('gf-msgs')) document.getElementById('gf-msgs').textContent = gf.toLocaleString();
+    if(document.getElementById('bf-msgs')) document.getElementById('bf-msgs').textContent = bf.toLocaleString();
+    if(document.getElementById('avg-summary-latency')) document.getElementById('avg-summary-latency').textContent = data.avgResponseLatencyMins || 20;
+
+    // Advanced Visualizations
+    if (data.heatmap) renderHeatmap(data.heatmap);
+    if (data.timeOfDay) renderRadialClock(data.timeOfDay);
+    if (data.loveLanguages) renderDonutPie(data.loveLanguages);
+    if (data.timeline) renderTimeline(data.timeline);
+
+    // Feeds
+    renderFeed('feed-likes', data.gfLoveLikes);
+    renderFeed('feed-happy', data.gfHappySafety);
+    renderFeed('feed-sad', data.gfMadSad);
+    renderFeed('feed-breakup', data.gfChallenges);
+}
+
+function renderFeed(elementId, items) {
+    const container = document.getElementById(elementId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (!items || items.length === 0) {
+        container.innerHTML = `<div class="p-4 text-muted">No specific logs found.</div>`;
+        return;
+    }
+
+    items.slice(0, 15).forEach(item => {
+        const entry = document.createElement('div');
+        entry.className = 'feed-entry';
+        entry.innerHTML = `
+            <div class="feed-time">${item.time || 'Log Entry'}</div>
+            <div class="feed-text">${item.text}</div>
+        `;
+        container.appendChild(entry);
+    });
+}
+
+function renderHeatmap(heatmapData) {
+    const container = document.getElementById('heatmap-grid');
+    if (!container || !heatmapData) return;
+    container.innerHTML = '';
+
+    const max = Math.max(...heatmapData.map(d => d.value), 1);
+    
+    heatmapData.forEach(day => {
+        const cell = document.createElement('div');
+        cell.className = 'heatmap-cell';
+        const opacity = day.value > 0 ? (0.2 + (day.value / max) * 0.8) : 0.05;
+        cell.style.background = `rgba(63, 185, 80, ${opacity})`;
+        cell.setAttribute('title', `${day.date}: ${day.value} messages`);
+        container.appendChild(cell);
+    });
+}
+
+function renderRadialClock(timeData) {
+    const container = document.getElementById('clock-vis');
+    if (!container || !timeData) return;
+
+    let svgHtml = `<svg width="180" height="180" viewBox="0 0 100 100" class="donut-svg">`;
+    svgHtml += `<circle cx="50" cy="50" r="45" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2" />`;
+    
+    timeData.forEach((hourData, i) => {
+        const angle = (i * 15) - 90;
+        const rad = (angle * Math.PI) / 180;
+        const x = 50 + 38 * Math.cos(rad);
+        const y = 50 + 38 * Math.sin(rad);
+        
+        const happy = hourData.happy || 0;
+        const conflict = hourData.conflict || 0;
+        const total = happy + conflict;
+        const safetyFactor = happy / (total || 1);
+        
+        const color = (total === 0) ? 'rgba(255,255,255,0.05)' : (safetyFactor > 0.7 ? '#3fb950' : (safetyFactor > 0.4 ? '#d29922' : '#ff7b72'));
+        const size = (total === 0) ? 1.5 : (2 + Math.min(total / 800, 3));
+        
+        svgHtml += `<circle cx="${x}" cy="${y}" r="${size}" fill="${color}">
+            <title>Hour ${i}:00 | Safety: ${(safetyFactor*100).toFixed(0)}% (${total} msgs)</title>
+        </circle>`;
+    });
+
+    svgHtml += `
+        <text x="50" y="48" text-anchor="middle" fill="#fff" font-size="6" font-weight="bold">SAFE</text>
+        <text x="50" y="56" text-anchor="middle" fill="#8b949e" font-size="4">ZONES</text>
+    </svg>`;
+    
+    container.innerHTML = svgHtml;
+}
+
+function renderDonutPie(loveData) {
+    const container = document.getElementById('love-vis');
+    if (!container || !loveData) return;
+
+    const items = Object.entries(loveData).map(([key, value]) => ({ key, value }));
+    const total = items.reduce((sum, item) => sum + item.value, 0);
+    
+    let currentPercent = 0;
+    const colors = ['#bc8cff', '#3fb950', '#58a6ff', '#ff7b72', '#d29922'];
+    const radius = 35;
+    const circumference = 2 * Math.PI * radius;
+
+    let svgHtml = `<svg width="180" height="180" viewBox="0 0 100 100" class="donut-svg">`;
+    
+    items.forEach((item, i) => {
+        if (total === 0) return;
+        const percent = (item.value / total);
+        const offset = circumference - (percent * circumference);
+        const rotation = (currentPercent * 360);
+        
+        svgHtml += `
+            <circle cx="50" cy="50" r="${radius}" 
+                class="donut-segment" 
+                stroke="${colors[i % colors.length]}" 
+                stroke-dasharray="${circumference} ${circumference}"
+                stroke-dashoffset="${offset}"
+                transform="rotate(${rotation} 50 50)">
+                <title>${item.key}: ${(percent*100).toFixed(1)}%</title>
+            </circle>`;
+        
+        currentPercent += percent;
+    });
+
+    svgHtml += `<text x="50" y="54" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">TRIGGERS</text></svg>`;
+    
+    let legendHtml = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; font-size: 0.7rem;">';
+    items.slice(0, 4).forEach((item, i) => {
+        legendHtml += `<div><span style="display:inline-block; width:8px; height:8px; background:${colors[i % colors.length]}; border-radius:50%; margin-right:4px;"></span> ${item.key}</div>`;
+    });
+    legendHtml += '</div>';
+
+    container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center;">${svgHtml}${legendHtml}</div>`;
+}
+
+function renderTimeline(timelineData) {
+    const container = document.getElementById('timeline-chart');
+    if (!container || !timelineData) return;
+    container.innerHTML = '';
+
+    // Fix: Some months use 'label' instead of 'month' in the raw data
+    const max = Math.max(...timelineData.map(d => (d.happy || 0) + (d.sad || 0) + (d.conflict || 0)), 1);
+    
+    timelineData.forEach(point => {
+        const barWrapper = document.createElement('div');
+        barWrapper.className = 'timeline-bar-wrapper';
+        
+        const total = (point.happy || 0) + (point.sad || 0) + (point.conflict || 0);
+        const bar = document.createElement('div');
+        bar.className = 'timeline-bar';
+        const height = (total / max) * 100;
+        bar.style.height = `${height}%`;
+        bar.style.background = 'var(--accent-blue)';
+        
+        const labelStr = point.label || point.month || 'X';
+        barWrapper.setAttribute('title', `${labelStr}: ${total} messages`);
+        barWrapper.appendChild(bar);
+        
+        const label = document.createElement('span');
+        label.className = 'timeline-label';
+        label.textContent = labelStr.includes('-') ? labelStr.split('-')[1] : labelStr.slice(-2);
+        barWrapper.appendChild(label);
+        
+        container.appendChild(barWrapper);
+    });
+}
+
+function renderPlaybook(playbook) {
+    const container = document.getElementById('playbook-carousel');
+    if (!container || !playbook || !playbook.sections) return;
+    container.innerHTML = '';
+
+    playbook.sections.forEach(section => {
+        const card = document.createElement('div');
+        card.className = 'playbook-card';
+        card.innerHTML = `
+            <h3>${section.category}</h3>
+            <ul>
+                ${section.points.map(p => `<li><strong>${p.title}:</strong> ${p.text}</li>`).join('')}
+            </ul>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function setupEmergencyModal(playbook) {
+    const modal = document.getElementById('emergency-modal');
+    const fab = document.getElementById('emergency-btn');
+    const close = document.querySelector('.close-modal');
+    const container = document.getElementById('emergency-content');
+
+    if (!modal || !fab || !close || !container) return;
+
+    fab.onclick = (e) => {
+        e.preventDefault();
+        const anchors = playbook?.sections?.find(s => s.category.includes('Emergency') || s.category.includes('Anchor'));
+        if (anchors && anchors.points) {
+            container.innerHTML = anchors.points.map(p => `
+                <div class="emergency-point">
+                    <h4>${p.title}</h4>
+                    <p>${p.text}</p>
+                </div>
+            `).join('');
+        }
+        modal.classList.add('show');
+    };
+
+    close.onclick = () => modal.classList.remove('show');
+    window.onclick = (e) => { if (e.target == modal) modal.classList.remove('show'); };
+}
+
+function setupModals() {
+    // Other modal setup if needed
+}
+
+
+async function initOfflineDashboard() {
+    try {
+        const data = window.__APP_DATA__;
+        const playbook = window.__PLAYBOOK_DATA__;
+
+        if (!data || !playbook) throw new Error('Inlined data missing.');
+
+        renderDashboard(data);
+        renderPlaybook(playbook);
+        setupEmergencyModal(playbook);
+        
+        document.body.classList.add('loaded');
+        console.log('Offline Dashboard Loaded Successfully');
+    } catch (e) {
+        console.error('Offline Load Error:', e);
+    }
+}
+document.addEventListener('DOMContentLoaded', initOfflineDashboard);
+
+</script>
+</body>
+
+</html>
