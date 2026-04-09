@@ -87,7 +87,7 @@ function renderDashboard(data) {
 
     // Feeds
     renderFeed('feed-likes', data.gfLoveLikes);
-    renderFeed('feed-happy', data.gfHappySafety);
+    renderFeed('feed-happy', data.gfHappySafety || data.gfHappySafe); // Support both naming variants 
     renderFeed('feed-sad', data.gfMadSad);
     renderFeed('feed-breakup', data.gfChallenges);
 }

@@ -76,8 +76,8 @@ ${js}
 
 singleHtml = singleHtml.replace(/<\/body>/, bodyEndInjection);
 
-// Output the final file
-fs.writeFileSync('Dashboard.html', singleHtml, 'utf8');
+// Output the final file as index.html for direct GitHub Pages deployment
+fs.writeFileSync('index.html', singleHtml, 'utf8');
 console.log('--- BUILD SUCCESSFUL ---');
-console.log('Generated: Dashboard.html');
+console.log('Generated: index.html (Bundled Version)');
 console.log('Size: ' + (Buffer.byteLength(singleHtml) / 1024).toFixed(2) + ' KB');
