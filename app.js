@@ -87,9 +87,9 @@ function renderDashboard(data) {
 
     // Feeds
     renderFeed('feed-likes', data.gfLoveLikes);
-    renderFeed('feed-happy', data.gfHappySafety || data.gfHappySafe); // Support both naming variants 
+    renderFeed('feed-happy', data.gfHappySafety || data.gfHappySafe);
     renderFeed('feed-sad', data.gfMadSad);
-    renderFeed('feed-breakup', data.gfChallenges);
+    renderFeed('feed-breakup', data.gfChallenges || data.gfBreakup || data.gfHardMoments); // Added more fallbacks
 }
 
 function renderFeed(elementId, items) {
@@ -239,42 +239,53 @@ function renderTimeline(timelineData) {
     });
 }
 
-function renderPlaybook(playbook) {
+function renderPlaybook(playbookData) {
     const container = document.getElementById('playbook-carousel');
-    if (!container || !playbook || !playbook.sections) return;
+    const sections = Array.isArray(playbookData) ? playbookData : (playbookData.sections || []);
+    if (!container || !sections.length) return;
     container.innerHTML = '';
 
-    playbook.sections.forEach(section => {
+    sections.forEach(section => {
         const card = document.createElement('div');
         card.className = 'playbook-card';
+        
+        const pointsHtml = section.points.map(p => {
+            if (typeof p === 'string') return `<li>${p}</li>`;
+            return `<li><strong>${p.title || ''}</strong> ${p.text || p}</li>`;
+        }).join('');
+        
         card.innerHTML = `
             <h3>${section.category}</h3>
-            <ul>
-                ${section.points.map(p => `<li><strong>${p.title}:</strong> ${p.text}</li>`).join('')}
-            </ul>
+            <ul>${pointsHtml}</ul>
         `;
         container.appendChild(card);
     });
 }
 
-function setupEmergencyModal(playbook) {
+function setupEmergencyModal(playbookData) {
     const modal = document.getElementById('emergency-modal');
     const fab = document.getElementById('emergency-btn');
     const close = document.querySelector('.close-modal');
     const container = document.getElementById('emergency-content');
 
+    const sections = Array.isArray(playbookData) ? playbookData : (playbookData.sections || []);
     if (!modal || !fab || !close || !container) return;
 
     fab.onclick = (e) => {
         e.preventDefault();
-        const anchors = playbook?.sections?.find(s => s.category.includes('Emergency') || s.category.includes('Anchor'));
+        const anchors = sections.find(s => s.category.toLowerCase().includes('emergency') || s.category.toLowerCase().includes('anchor') || s.category.toLowerCase().includes('summary'));
         if (anchors && anchors.points) {
-            container.innerHTML = anchors.points.map(p => `
-                <div class="emergency-point">
-                    <h4>${p.title}</h4>
-                    <p>${p.text}</p>
-                </div>
-            `).join('');
+            container.innerHTML = anchors.points.map(p => {
+                if (typeof p === 'string') return `<div class="emergency-point"><p>${p}</p></div>`;
+                return `
+                    <div class="emergency-point">
+                        <h4>${p.title || ''}</h4>
+                        <p>${p.text || ''}</p>
+                    </div>
+                `;
+            }).join('');
+        } else {
+            container.innerHTML = `<div class="emergency-point"><p>Stay calm. Focus on your breath. Re-read the Master Playbook summary for grounding guidance.</p></div>`;
         }
         modal.classList.add('show');
     };
